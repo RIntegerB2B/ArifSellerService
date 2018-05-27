@@ -11,7 +11,7 @@ exports.signInToSite = function (req, res) {
                 message: "Some error occurred while retrieving notes."
             });
         } else {
-            res.send(userDetail);
+            res.send(userDetail[0]._id);
         }
     });
 
