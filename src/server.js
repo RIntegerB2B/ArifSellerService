@@ -20,7 +20,7 @@ let options = cors.CorsOptions = {
     origin: API_URL,
     preflightContinue: false
   };
-app.use(cors(options));
+app.use(cors());
 routes.loadRoutes(app);
 app.listen(port);
 
