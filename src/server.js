@@ -34,7 +34,7 @@ mongoose.connection.once('open', function () {
 })
 
 app.get('/test', function (req, res) {
-    res.end("Success!");
+    res.send("Success!");
 })
 
 console.log('Seller Service started on: ' + port);

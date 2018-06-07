@@ -9,7 +9,7 @@ module.exports = function (app) {
         .post(signInMgr.signInToSite);
 
     app.route('/pwdChange/:emailId')
-        .post(pwdChangeMgr.pwdChangeRequest);
+        .get(pwdChangeMgr.pwdChangeRequest);
 
   /*  app.route('/pwdChange/reset/:key')
         .post(pwdChangeMgr.pwdChangeReset);  */
