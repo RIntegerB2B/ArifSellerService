@@ -11,6 +11,6 @@ module.exports = function (app) {
     app.route('/pwdChange/:emailId')
         .post(pwdChangeMgr.pwdChangeRequest);
 
-    app.route('/pwdChange/reset/:key')
-        .post(pwdChangeMgr.pwdChangeReset); 
+  /*  app.route('/pwdChange/reset/:key')
+        .post(pwdChangeMgr.pwdChangeReset);  */
 }

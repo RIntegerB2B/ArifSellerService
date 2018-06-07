@@ -1,5 +1,25 @@
-/* pwd changes  DA*/
+'use strict';
+var ReqToAdmin = require('../../model/adminReqPwd.model');
 
-//anybody there?
+exports.pwdChangeRequest = function (req, res) {
+    ReqToAdmin.update({
+        'randomKey':"xyz",
 
-//yes
+        'validUntil':function()
+        {
+            var currentDate = new Date();
+var numberOfDaysToAdd = 2;
+currentDate.setDate(currentDate.getDate() + numberOfDaysToAdd); 
+
+var dd = currentDate.getDate();
+var mm = currentDate.getMonth() + 1;
+var y = currentDate.getFullYear();
+
+var someFormattedDate = dd + '/'+ mm + '/'+ y;
+            
+        }
+    })
+
+};
+
+
