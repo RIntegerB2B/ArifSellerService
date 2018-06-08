@@ -1,21 +1,19 @@
+'use strict';
+var ReqToAdmin=require('../../model/adminReqPwd.model');
 
-               'use strict';
-                
-               exports.pwdChangeRequest = function (req, res,someFormattedDate) 
-               {
-                ReqToAdmin.update({
-                    'randomKey':req.params.email,
-            
-                    'validUntil':someFormattedDate
-                },
-                function (err) {
-                    if (err) {
-                        res.status(500).send({
-                            message: "Some error occurred "
-                        });
-                    } else {
-                        res.send(0);
-                    }
+exports.pwdChangeRequest = function (req, res, someFormattedDate) {
+    ReqToAdmin.save({
+            'randomKey': req.params.email,
+
+            'validUntil': someFormattedDate
+        },
+        function (err) {
+            if (err) {  // if it contains error return 0
+                res.status(500).send({
+                    message: "Some error occurred "
                 });
-               };
-               
+            } else {
+                res.json(1); // The update is success , return 1
+            }
+        });
+};
