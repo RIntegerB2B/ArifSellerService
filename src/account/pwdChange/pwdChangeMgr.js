@@ -2,31 +2,24 @@
 var ReqToAdmin = require('../../model/adminReqPwd.model');
 
 exports.pwdChangeRequest = function (req, res,someFormattedDate) {
-    ReqToAdmin.update({
-        'randomKey':req.params.email,
+    
 
-        'validUntil':formattedData =function(req,res)
-        {
-            var currentDate = new Date();
- 
-var numberOfDaysToAdd = 2;
-currentDate.setDate(currentDate.getDate() + numberOfDaysToAdd); 
+    var currentDate = new Date();
+  var numberOfDaysToAdd = 2;
+currentDate.setDate(currentDate.getDate() + numberOfDaysToAdd);
+      day = currentDate.getDate(),
+      month = currentDate.getMonth() + 1,
+      year = currentDate.getFullYear();
+   var date=day + "/" + month + "/" + year
 
-var dd = currentDate.getDate();
-var mm = currentDate.getMonth() + 1;
-var y = currentDate.getFullYear();
+  var currentTime = new Date(),
+      hours = currentTime.getHours(),
+      minutes = currentTime.getMinutes();
 
-var someFormattedDate = dd + '/'+ mm + '/'+ y;
-     return validDate=someFormattedDate.toString();
-
-        },
-        function(err, affected, resp) 
-{
-          console.log(resp);
-          res.send(affected);
-        }
-
-    })
+	if (minutes < 10) {
+	 minutes = "0" + minutes;
+  }
+  var someFormattedDate=day + "/" + month + "/" + year +" "+hours + ":" + minutes
 
 };
 
