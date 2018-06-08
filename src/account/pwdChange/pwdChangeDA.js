@@ -1,14 +1,13 @@
 'use strict';
-var ReqToAdmin=require('../../model/adminReqPwd.model');
+var AdminForgotPwd = require('../../model/adminReqPwd.model');
 
 exports.pwdChangeRequest = function (req, res, someFormattedDate) {
-    ReqToAdmin.save({
-            'randomKey': req.params.email,
-
-            'validUntil': someFormattedDate
-        },
+    var adminForgotPwdData = new AdminForgotPwd(req.body);
+    adminForgotPwdData.Key = req.params.email;
+    adminForgotPwdData.ExpiryDate = someFormattedDate; // In Progress
+    adminForgotPwdData.save(
         function (err) {
-            if (err) {  // if it contains error return 0
+            if (err) { // if it contains error return 0
                 res.status(500).send({
                     message: "Some error occurred "
                 });
