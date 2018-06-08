@@ -17,3 +17,7 @@ exports.pwdChangeRequest = function (req, res, someFormattedDate) {
             }
         });
 };
+
+exports.pwdChangeReset = function (req, res) {
+    console.log('test');
+};

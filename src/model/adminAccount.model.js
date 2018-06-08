@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 
 const AdminAccountSchema = new mongoose.Schema({
     userName: String,
-    password: String
+    password: String,
+    isActive: Boolean
 });
 
 const AdminAccount = mongoose.model('adminAccount', AdminAccountSchema);
