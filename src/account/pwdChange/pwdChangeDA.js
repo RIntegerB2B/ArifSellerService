@@ -1,5 +1,6 @@
 'use strict';
 var AdminForgotPwd = require('../../model/adminReqPwd.model');
+var AdminAccount = require('../../model/adminAccount.model');
 
 exports.pwdChangeRequest = function (req, res, someFormattedDate) {
     var adminForgotPwdData = new AdminForgotPwd(req.body);
@@ -18,5 +19,13 @@ exports.pwdChangeRequest = function (req, res, someFormattedDate) {
 };
 
 exports.pwdChangeReset = function (req, res) {
+    // Update Pwd and isActive in adminaccount collection
+    AdminAccount.update({
+            password: req.body.password
+        }),
+        function (err, affected, res) {
+            console.log(res);
+            res.send(affected);
+        }
     console.log('test');
 };
