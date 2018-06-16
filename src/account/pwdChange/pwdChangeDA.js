@@ -4,7 +4,7 @@ var AdminAccount = require('../../model/adminAccount.model');
 
 exports.pwdChangeRequest = function (req, res, someFormattedDate) {
     var adminForgotPwdData = new AdminForgotPwd(req.body);
-    adminForgotPwdData.Key = req.params.email;
+    adminForgotPwdData.Key = req.params.emailId;
     adminForgotPwdData.ExpiryDate = someFormattedDate; // In Progress
     adminForgotPwdData.save(
         function (err) {
@@ -21,7 +21,8 @@ exports.pwdChangeRequest = function (req, res, someFormattedDate) {
 exports.pwdChangeReset = function (req, res) {
     // Update Pwd and isActive in adminaccount collection
     AdminAccount.update({
-            password: req.body.password
+            password: req.body.password,
+            isActive:true
         }),
         function (err, affected, res) {
             console.log(res);
