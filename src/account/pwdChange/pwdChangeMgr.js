@@ -25,22 +25,25 @@ exports.pwdChangeRequest = function (req, res) {
 };
 
 var sendEmail = function () {
-  var transporter = nodemailer.createTransport({
-    service: 'outlook',
+    let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
     auth: {
-      user: 'princepreveen@outlook.com',
-      pass: 'Cspirpja@1'
+        user: 'RIntegerNotification@gmail.com',
+        pass: 'SellerApp@1'
     }
-  });
-
+});
+  
   var mailOptions = {
-    from: 'princepreveen@outlook.com',
+    from: 'RIntegerNotification@gmail.com',
     to: 'lancepreveen@gmail.com',
-    subject: 'Seller ECom',
-    text: 'Your request will be approved soon!!'
+    subject: 'Sending Email using Node.js',
+    text: 'That was easy!'
   };
-
-  transporter.sendMail(mailOptions, function (error, info) {
+  
+  transporter.sendMail(mailOptions, function(error, info){
     if (error) {
       console.log(error);
     } else {
