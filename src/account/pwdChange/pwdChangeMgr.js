@@ -38,7 +38,7 @@ var sendEmail = function () {
   
   var mailOptions = {
     from: 'RIntegerNotification@gmail.com',
-    to: 'lancepreveen@gmail.com',
+    to: req.params.emailId,
     subject: 'Sending Email using Node.js',
     text: 'That was easy!'
   };

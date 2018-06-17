@@ -21,7 +21,7 @@ exports.pwdChangeRequest = function (req, res, someFormattedDate) {
 exports.pwdChangeReset = function (req, res) {
     // Update Pwd and isActive in adminaccount collection
     AdminAccount.update({
-            password: req.body.password,
+            password: req.params.password,
             isActive:true
         }),
         function (err, affected, res) {
