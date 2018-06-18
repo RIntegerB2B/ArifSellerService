@@ -1,6 +1,9 @@
 'use strict';
 var pwdChangeDA = require('../../account/pwdChange/pwdChangeDA');
+var AdminAccount = require('../../model/adminAccount.model');
 var nodemailer = require('nodemailer');
+var jwt = require('jsonwebtoken');
+var secret = 'secret';
 
 exports.pwdChangeRequest = function (req, res) {
   var currentDate = new Date();
@@ -52,6 +55,21 @@ var sendEmail = function () {
   });
 }
 
-exports.pwdChangeReset = function (req, res) {
-  pwdChangeDA.pwdChangeReset(req, res);
+exports.pwdChangeReset = function (req, decode) {
+  AdminAccount.findOne({ key: req.params.key }).select().exec(function(err, adminaccount) {
+    if (err) throw err; // Throw err if cannot connect
+    var key = req.params.key; // Save user's token from parameters to variable
+    // Function to verify token
+    jwt.verify(key, secret, function(err, res) {
+      if (err) {
+        res.json({ success: false, message: 'Password link has expired' }); // Token has expired or is invalid
+      } else {
+        if (!user) {
+          res.json({ success: false, message: 'Password link has expired' }); // Token is valid but not no user has that token anymore
+        } else {
+          res.json({ success: true, adminaccount: adminaccount }); // Return user object to controller
+        }
+      }
+    });
+  });
 };

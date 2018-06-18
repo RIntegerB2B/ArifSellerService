@@ -9,10 +9,12 @@
   "author": "RInteger",
   "license": "ISC",
   "dependencies": {
+    "angular2-jwt": "^0.2.3",
     "body-parser": "^1.18.2",
     "child_process": "^1.0.2",
     "cors": "^2.8.4",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.0.18",
     "nodemailer": "^4.6.7",
     "nodemon": "^1.17.4"
