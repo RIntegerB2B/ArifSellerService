@@ -5,6 +5,10 @@ var nodemailer = require('nodemailer');
 var jwt = require('jsonwebtoken');
 var secret = 'secret';
 
+exports.pwdChangeResetPwd =function(req,res){
+  pwdChangeDA.pwdChangeResetPwd(req, res);
+}
+
 exports.pwdChangeRequest = function (req, res) {
   var currentDate = new Date();
   var numberOfDaysToAdd = 2;
@@ -56,7 +60,7 @@ var sendEmail = function () {
 }
 
 exports.pwdChangeReset = function (req, decode) {
-  AdminAccount.findOne({ key: req.params.key }).select().exec(function(err, adminaccount) {
+  /* AdminAccount.findOne({ key: req.params.key }).select().exec(function(err, adminaccount) {
     if (err) throw err; // Throw err if cannot connect
     var key = req.params.key; // Save user's token from parameters to variable
     // Function to verify token
@@ -71,5 +75,5 @@ exports.pwdChangeReset = function (req, decode) {
         }
       }
     });
-  });
+  }); */
 };

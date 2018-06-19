@@ -18,6 +18,21 @@ exports.pwdChangeRequest = function (req, res, someFormattedDate) {
         });
 };
 
+exports.pwdChangeResetPwd =function(req,res){
+    // Here pls update the admin collection's two fields - pwd and isActive
+   // U should take the value from req.body.password 
+   AdminAccount.update({
+    password: req.body.password
+    
+}),
+function (err, affected, res) {
+    console.log(res);
+    res.send(affected);
+}
+console.log('test');
+
+};
+
 exports.pwdChangeReset = function (req, res) {
     // Update Pwd and isActive in adminaccount collection
     router.put('/savepassword', function(req, res) {
@@ -27,7 +42,7 @@ exports.pwdChangeReset = function (req, res) {
 				res.json({ success: false, message: 'Password not provided' });
 			} else {
 				adminaccount.password = req.body.password; // Save user's new password to the user object
-				adminaccount.resettoken = false; // Clear user's resettoken 
+				adminaccount.Key = false; // Clear user's resettoken 
 				// Save user's new data
 				adminaccount.save(function(err) {
 					if (err) {
