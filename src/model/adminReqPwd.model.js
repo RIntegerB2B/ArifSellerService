@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 
 const AdminForgotPwdSchema  = new mongoose.Schema({
     Key: String,
-    ExpiryDate: Date
+    ExpiryDate: Date,
+    isActive: Boolean
 });
 
 const AdminForgotPwd = mongoose.model('adminForgotPwd', AdminForgotPwdSchema);

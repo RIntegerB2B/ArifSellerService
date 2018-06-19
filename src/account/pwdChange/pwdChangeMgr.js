@@ -9,7 +9,7 @@ exports.pwdChangeResetPwd =function(req,res){
   pwdChangeDA.pwdChangeResetPwd(req, res);
 }
 
-exports.pwdChangeRequest = function (req, res) {
+exports.pwdChangeRequest = function (req, res,someFormattedDate) {
   var currentDate = new Date();
   var numberOfDaysToAdd = 2;
   currentDate.setDate(currentDate.getDate() + numberOfDaysToAdd);
@@ -25,7 +25,7 @@ exports.pwdChangeRequest = function (req, res) {
   if (minutes < 10) {
     minutes = "0" + minutes;
   }
-  var someFormattedDate = day + "/" + month + "/" + year + " " + hours + ":" + minutes;
+  var someFormattedDate =year  + "-" + month + "-" + day + " " + hours + ":" + minutes;
   pwdChangeDA.pwdChangeRequest(req, res, someFormattedDate);
   sendEmail();
 

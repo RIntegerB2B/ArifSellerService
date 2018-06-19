@@ -8,7 +8,8 @@ module.exports = function (app) {
     app.route('/admin/validate')
         .post(signInMgr.signInToSite);
 
-    app.route('/pwdChange/:emailId')
+    //Get Call - http://localhost:3001/pwdChange/admin@gmail.com
+        app.route('/pwdChange/:emailId')
         .get(pwdChangeMgr.pwdChangeRequest);
 
     // Post call in Postman - http://localhost:3001/pwdChange/reset

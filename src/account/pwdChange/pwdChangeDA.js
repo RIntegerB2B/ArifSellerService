@@ -3,25 +3,66 @@ var AdminForgotPwd = require('../../model/adminReqPwd.model');
 var AdminAccount = require('../../model/adminAccount.model');
 
 exports.pwdChangeRequest = function (req, res, someFormattedDate) {
-    var adminForgotPwdData = new AdminForgotPwd(req.body);
-    adminForgotPwdData.Key = req.params.emailId;
-    adminForgotPwdData.ExpiryDate = someFormattedDate; // In Progress
-    adminForgotPwdData.save(
-        function (err) {
-            if (err) { // if it contains error return 0
-                res.status(500).send({
-                    message: "Some error occurred "
-                });
-            } else {
-                res.json(1); // The update is success , return 1
-            }
-        });
+
+    // first Check email Id Matches
+    AdminAccount.find({
+        'emailId': req.params.emailId
+    }).exec(function (err) {
+        if (err) {
+            res.status(500).send({
+                "result": 0
+            }); // if error occurs return 0
+        } else {
+            // Update the AdminAccount Collection "isActive" to 0
+            AdminAccount.update({
+                'isActive': 0
+            }, function (err) {
+                if (err) { // if it contains error return 0
+                    res.status(500).send({
+                        "result": 0
+                    });
+                } else {
+                    AdminForgotPwd.update({
+                        'isActive': 0
+                    }, function (err) {
+                        if (err) { // if it contains error return 0
+                            res.status(500).send({
+                                "result": 0
+                            });
+                        } else {
+                            // Do the insert operation 
+                            var adminForgotPwdData = new AdminForgotPwd(req.body);
+                            adminForgotPwdData.Key = "xyz";
+                            adminForgotPwdData.ExpiryDate = new Date(someFormattedDate); // In Progress
+                            adminForgotPwdData.isActive = 1;
+                            adminForgotPwdData.save(
+                                function (err) {
+                                    if (err) { // if it contains error return 0
+                                        res.status(500).send({
+                                            "result": 0
+                                        });
+                                    } else {
+                                        res.status(500).send({
+                                            "result": 1
+                                        });
+                                    }
+                                });
+                        }
+                    });
+                }
+            });
+        }
+    })
+
+
 };
 
 exports.pwdChangeResetPwd = function (req, res) {
     // Here pls update the admin collection's two fields - pwd and isActive
     // U should take the value from req.body.password 
-    AdminAccount.update({}, { password: req.body.password }, opts, function (err) {
+    AdminAccount.update({}, {
+        password: req.body.password
+    }, opts, function (err) {
         if (err) { // if it contains error return 0
             res.status(500).send({
                 message: "Some error occurred "
@@ -29,7 +70,7 @@ exports.pwdChangeResetPwd = function (req, res) {
         } else {
             res.json(1); // The update is success , return 1
         }
-      });
+    });
 };
 
 /*exports.pwdChangeReset = function (req, res) {
@@ -64,7 +105,9 @@ exports.pwdChangeReset = function (req, res) {
         else {
             //So the Key exist , now lets update the pwd
             var opts;
-            AdminAccount.update({}, { password: req.body.password }, opts, function (err) {
+            AdminAccount.update({}, {
+                password: req.body.password
+            }, opts, function (err) {
                 if (err) { // if it contains error return 0
                     res.status(500).send({
                         message: "Some error occurred "
@@ -72,7 +115,7 @@ exports.pwdChangeReset = function (req, res) {
                 } else {
                     res.status(200).json(1); // The update is success , return 1
                 }
-              });
+            });
         }
     });
 }
