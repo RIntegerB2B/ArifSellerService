@@ -11,14 +11,12 @@ module.exports = function (app) {
     app.route('/pwdChange/:emailId')
         .get(pwdChangeMgr.pwdChangeRequest);
 
-    app.route('/pwdChange/reset/:key/:pwd')
-        .get(pwdChangeMgr.pwdChangeReset);  
-
-        // Post call in Postman - http://localhost:3001/pwdChange/reset
+    // Post call in Postman - http://localhost:3001/pwdChange/reset
         //Below is the Json data u have to put in Postman Body
         // {
-        //    "password": "NewPassword"
+        //    "password": "NewPassword",
+        //    "key" : "xyz"
         //}
     app.route('/pwdChange/reset')
-        .post(pwdChangeMgr.pwdChangeResetPwd);  
+        .post(pwdChangeMgr.pwdChangeReset);  
 }

@@ -59,7 +59,8 @@ var sendEmail = function () {
   });
 }
 
-exports.pwdChangeReset = function (req, decode) {
+exports.pwdChangeReset = function (req, res) {
+  pwdChangeDA.pwdChangeReset(req,res)
   /* AdminAccount.findOne({ key: req.params.key }).select().exec(function(err, adminaccount) {
     if (err) throw err; // Throw err if cannot connect
     var key = req.params.key; // Save user's token from parameters to variable
