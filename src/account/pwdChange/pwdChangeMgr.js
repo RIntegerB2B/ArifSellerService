@@ -27,7 +27,7 @@ exports.pwdChangeRequest = function (req, res,someFormattedDate) {
   }
   var someFormattedDate =year  + "-" + month + "-" + day + " " + hours + ":" + minutes;
   pwdChangeDA.pwdChangeRequest(req, res, someFormattedDate);
-  sendEmail();
+  //sendEmail();
 
 };
 

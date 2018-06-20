@@ -4,15 +4,27 @@ var AdminAccount = require('../../model/adminAccount.model');
 
 exports.pwdChangeRequest = function (req, res, someFormattedDate) {
 
-    // first Check email Id Matches
+
+   // first Check email Id Matches
     AdminAccount.find({
         'emailId': req.params.emailId
-    }).exec(function (err) {
+    }).exec(function (err, email) {
         if (err) {
             res.status(500).send({
                 "result": 0
             }); // if error occurs return 0
         } else {
+            //if condition for email vaildation
+            if(email.length > 0){
+                res.status(200).send({
+                 "result": 1
+                   })
+               }
+            else{
+                   res.status(200).send({
+                       "result":2
+                   })
+             }
             // Update the AdminAccount Collection "isActive" to 0
             AdminAccount.update({
                 'isActive': 0
@@ -42,7 +54,7 @@ exports.pwdChangeRequest = function (req, res, someFormattedDate) {
                                             "result": 0
                                         });
                                     } else {
-                                        res.status(500).send({
+                                        res.status(200).send({
                                             "result": 1
                                         });
                                     }
@@ -52,10 +64,11 @@ exports.pwdChangeRequest = function (req, res, someFormattedDate) {
                 }
             });
         }
-    })
+    }) 
+
+}
 
 
-};
 
 exports.pwdChangeResetPwd = function (req, res) {
     // Here pls update the admin collection's two fields - pwd and isActive
@@ -71,7 +84,7 @@ exports.pwdChangeResetPwd = function (req, res) {
             res.json(1); // The update is success , return 1
         }
     });
-};
+}; 
 
 /*exports.pwdChangeReset = function (req, res) {
     // Update Pwd and isActive in adminaccount collection
