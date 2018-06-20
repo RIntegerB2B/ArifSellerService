@@ -2,7 +2,8 @@
 var AdminForgotPwd = require('../../model/adminReqPwd.model');
 var AdminAccount = require('../../model/adminAccount.model');
 
-exports.pwdChangeRequest = function (req, res, someFormattedDate) {
+
+exports.pwdChangeRequest = function (req, res, someFormattedDate, randomKey) {
 
 
    // first Check email Id Matches
@@ -44,7 +45,7 @@ exports.pwdChangeRequest = function (req, res, someFormattedDate) {
                         } else {
                             // Do the insert operation 
                             var adminForgotPwdData = new AdminForgotPwd(req.body);
-                            adminForgotPwdData.Key = "xyz";
+                            adminForgotPwdData.Key = randomKey;
                             adminForgotPwdData.ExpiryDate = new Date(someFormattedDate); // In Progress
                             adminForgotPwdData.isActive = 1;
                             adminForgotPwdData.save(

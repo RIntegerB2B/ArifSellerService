@@ -2,14 +2,14 @@
 var pwdChangeDA = require('../../account/pwdChange/pwdChangeDA');
 var AdminAccount = require('../../model/adminAccount.model');
 var nodemailer = require('nodemailer');
-var jwt = require('jsonwebtoken');
-var secret = 'secret';
+var randomKey = require('random-key-generator');    
+
 
 exports.pwdChangeResetPwd =function(req,res){
   pwdChangeDA.pwdChangeResetPwd(req, res);
 }
 
-exports.pwdChangeRequest = function (req, res,someFormattedDate) {
+exports.pwdChangeRequest = function (req, res) {
   var currentDate = new Date();
   var numberOfDaysToAdd = 2;
   currentDate.setDate(currentDate.getDate() + numberOfDaysToAdd);
@@ -26,12 +26,18 @@ exports.pwdChangeRequest = function (req, res,someFormattedDate) {
     minutes = "0" + minutes;
   }
   var someFormattedDate =year  + "-" + month + "-" + day + " " + hours + ":" + minutes;
-  pwdChangeDA.pwdChangeRequest(req, res, someFormattedDate);
-  //sendEmail();
+  var rdmKey = randomKey(10);
+  pwdChangeDA.pwdChangeRequest(req, res, someFormattedDate, rdmKey);
+  try {
+    sendEmail(rdmKey);
+  }
+  catch(error){
+    console.log(error);
+  }
 
 };
 
-var sendEmail = function () {
+var sendEmail = function (randomKey) {
     let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
@@ -46,8 +52,8 @@ var sendEmail = function () {
   var mailOptions = {
     from: 'RIntegerNotification@gmail.com',
     to: req.params.emailId,
-    subject: 'Sending Email using Node.js',
-    text: 'That was easy!'
+    subject: 'Password Change Notification',
+    text: 'Please use the link to reset your password http://http://ec2-13-126-16-163.ap-south-1.compute.amazonaws.com:81/pwdChange/' + randomKey
   };
   
   transporter.sendMail(mailOptions, function(error, info){
