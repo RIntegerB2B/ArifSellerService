@@ -28,9 +28,10 @@ exports.pwdChangeRequest = function (req, res) {
   }
   var someFormattedDate =year  + "-" + month + "-" + day + " " + hours + ":" + minutes;
   var rdmKey = randomKey(10);
+  var emailId = req.params.emailId;
   pwdChangeDA.pwdChangeRequest(req, res, someFormattedDate, rdmKey);
   try {
-    sendEmail(rdmKey);
+    sendEmail(rdmKey, emailId);
   }
   catch(error){
     console.log(error);
@@ -39,7 +40,7 @@ exports.pwdChangeRequest = function (req, res) {
 };
 
 
-var sendEmail = function (randomKey) {
+var sendEmail = function (randomKey, emailId) {
     let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
@@ -53,7 +54,7 @@ var sendEmail = function (randomKey) {
 
   var mailOptions = {
     from: 'RIntegerNotification@gmail.com',
-    to: req.params.emailId,
+    to: emailId,
     subject: 'Password Change Notification',
     text: 'Please use the link to reset your password http://http://ec2-13-126-16-163.ap-south-1.compute.amazonaws.com:81/pwdChange/' + randomKey
   };
@@ -69,20 +70,4 @@ var sendEmail = function (randomKey) {
 
 exports.pwdChangeReset = function (req, res) {
   pwdChangeDA.pwdChangeReset(req, res)
-  /* AdminAccount.findOne({ key: req.params.key }).select().exec(function(err, adminaccount) {
-    if (err) throw err; // Throw err if cannot connect
-    var key = req.params.key; // Save user's token from parameters to variable
-    // Function to verify token
-    jwt.verify(key, secret, function(err, res) {
-      if (err) {
-        res.json({ success: false, message: 'Password link has expired' }); // Token has expired or is invalid
-      } else {
-        if (!user) {
-          res.json({ success: false, message: 'Password link has expired' }); // Token is valid but not no user has that token anymore
-        } else {
-          res.json({ success: true, adminaccount: adminaccount }); // Return user object to controller
-        }
-      }
-    });
-  }); */
 };

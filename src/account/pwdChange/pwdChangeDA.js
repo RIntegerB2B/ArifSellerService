@@ -17,16 +17,7 @@ exports.pwdChangeRequest = function (req, res, someFormattedDate, randomKey) {
         } else {
             //if condition for email vaildation
             if(email.length > 0){
-                res.status(200).send({
-                 "result": 1
-                   })
-               }
-            else{
-                   res.status(200).send({
-                       "result":2
-                   })
-             }
-            // Update the AdminAccount Collection "isActive" to 0
+                // Update the AdminAccount Collection "isActive" to 0
             AdminAccount.update({
                 'isActive': 0
             }, function (err) {
@@ -64,6 +55,13 @@ exports.pwdChangeRequest = function (req, res, someFormattedDate, randomKey) {
                     });
                 }
             });
+               }
+            else{
+                   res.status(200).send({
+                       "result":2
+                   })
+             }
+            
         }
     }) 
 
