@@ -2,14 +2,13 @@
 var pwdChangeDA = require('../../account/pwdChange/pwdChangeDA');
 var AdminAccount = require('../../model/adminAccount.model');
 var nodemailer = require('nodemailer');
-var jwt = require('jsonwebtoken');
-var secret = 'secret';
 
-exports.pwdChangeResetPwd =function(req,res){
+exports.pwdChangeResetPwd = function (req, res) {
   pwdChangeDA.pwdChangeResetPwd(req, res);
 }
 
 exports.pwdChangeRequest = function (req, res) {
+  
   var currentDate = new Date();
   var numberOfDaysToAdd = 2;
   currentDate.setDate(currentDate.getDate() + numberOfDaysToAdd);
@@ -32,25 +31,25 @@ exports.pwdChangeRequest = function (req, res) {
 };
 
 var sendEmail = function () {
-    let transporter = nodemailer.createTransport({
+  let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
     secure: false,
     requireTLS: true,
     auth: {
-        user: 'RIntegerNotification@gmail.com',
-        pass: 'SellerApp@1'
+      user: 'RIntegerNotification@gmail.com',
+      pass: 'SellerApp@1'
     }
-});
-  
+  });
+
   var mailOptions = {
     from: 'RIntegerNotification@gmail.com',
     to: req.params.emailId,
     subject: 'Sending Email using Node.js',
     text: 'That was easy!'
   };
-  
-  transporter.sendMail(mailOptions, function(error, info){
+
+  transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log(error);
     } else {
@@ -60,7 +59,7 @@ var sendEmail = function () {
 }
 
 exports.pwdChangeReset = function (req, res) {
-  pwdChangeDA.pwdChangeReset(req,res)
+  pwdChangeDA.pwdChangeReset(req, res)
   /* AdminAccount.findOne({ key: req.params.key }).select().exec(function(err, adminaccount) {
     if (err) throw err; // Throw err if cannot connect
     var key = req.params.key; // Save user's token from parameters to variable

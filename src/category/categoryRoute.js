@@ -1,4 +1,4 @@
 'use strict';
 module.exports = function (app) {
-    // add your rutes here
+    // add your routes here
 }
