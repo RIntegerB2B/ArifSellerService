@@ -1,9 +1,6 @@
 var mongoose = require('mongoose');
 
-/* const MainCategorySchema=new mongoose.Schema({
-    mainCategoryName: String,
-    maincategoryDescription: String
-}) */
+
 const SuperCategorySchema = new mongoose.Schema({
     
     categoryName: String,

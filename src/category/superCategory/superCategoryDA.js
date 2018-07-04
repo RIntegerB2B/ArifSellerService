@@ -50,9 +50,6 @@ exports.superCategoryDelete = function (req, res) {
                 "result": 0
             });
         } else {
-              
-
-
             res.status(500).send({
                 "result": 1
             });
