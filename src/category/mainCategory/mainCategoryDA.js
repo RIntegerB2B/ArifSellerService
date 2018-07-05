@@ -49,7 +49,31 @@ exports.mainCategoryDelete = function (req, res) {
     });
 }
 
+exports.mainCategoryUpdate = function (req, res) {
+    SuperCategory.findById(req.params.categoryId, function (err, category) {
+        if (err) {
+            res.status(500).send({
+                "result": 0
+            });
+        } else {
+            var mainCat = category.mainCategory.id(req.params.mainCategoryId);
+            mainCat.mainCategoryName = req.body.mainCategoryName;
+            mainCat.mainCategoryDescription = req.body.mainCategoryDescription;
+            category.save(function (err) {
+                if (err) {
+                    res.status(201).send({
+                        "result": 0
+                    });
+                } else {
+                    res.status(201).send({
+                        "result": 1
+                    });
+                }
+            });
 
+        }
+    });
+}
 
 exports.showSuperCategory = function (req, res) {
     SuperCategory.find({}).select('categoryName ').exec(function (err, superCat) {

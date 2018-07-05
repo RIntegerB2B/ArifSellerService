@@ -8,6 +8,9 @@ module.exports = function (app) {
     app.route('/addCategory')
         .post(superCategoryMgr.superCategoryInsert);
 
+    app.route('/superCategory')
+        .get(mainCategoryMgr.showSuperCategory);
+
     app.route('/category')
         .post(superCategoryMgr.superCategoryEdit);
 
@@ -19,9 +22,11 @@ module.exports = function (app) {
 
     app.route('/category/:categoryId/mainCategory/:mainCategoryId')
         .delete(mainCategoryMgr.mainCategoryDelete);
-
-    app.route('/superCategory')
-        .get(mainCategoryMgr.showSuperCategory);
+    
+    app.route('/category/:categoryId/mainCategory/:mainCategoryId')
+        .put(mainCategoryMgr.mainCategoryUpdate);
+        
+    
 
 
 

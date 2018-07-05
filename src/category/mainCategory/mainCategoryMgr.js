@@ -12,3 +12,8 @@ exports.mainCategoryDelete = function (req, res) {
 exports.showSuperCategory = function (req, res) {
     mainCategoryDA.showSuperCategory(req, res)
 }
+
+exports.mainCategoryUpdate = function (req, res) {
+    mainCategoryDA.mainCategoryUpdate(req, res)
+}
+
