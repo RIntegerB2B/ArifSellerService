@@ -12,13 +12,13 @@ module.exports = function (app) {
         .post(superCategoryMgr.superCategoryEdit);
 
     app.route('/categoryDelete')
-        .post(superCategoryMgr.superCategoryDelete);
+        .delete(superCategoryMgr.superCategoryDelete);
 
     app.route('/mainCategory')
         .post(mainCategoryMgr.mainCategoryInsert);
 
-    app.route('/mainCategoryDelete')
-        .post(mainCategoryMgr.mainCategoryDelete);
+    app.route('/category/:categoryId/mainCategory/:mainCategoryId')
+        .delete(mainCategoryMgr.mainCategoryDelete);
 
     app.route('/superCategory')
         .get(mainCategoryMgr.showSuperCategory);

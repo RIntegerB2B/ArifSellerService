@@ -25,32 +25,29 @@ exports.mainCategoryInsert = function (req, res) {
     )
 }
 
-
-
 exports.mainCategoryDelete = function (req, res) {
-
-    SuperCategory.findById(req.body._id, function (err, findSup) {
+    SuperCategory.findById(req.params.categoryId, function (err, category) {
         if (err) {
             res.status(500).send({
                 "result": 0
             });
         } else {
-            SuperCategory.findOneAndRemove({
-                'mainCategory._id': req.body.mainCategory
-            }, function (err, findmain) {
+            category.mainCategory.id(req.params.mainCategoryId).remove();
+            category.save(function (err) {
                 if (err) {
-                    res.status(500).send({
-                        "result": 1
+                    res.status(201).send({
+                        "result": 0
                     });
                 } else {
-
-                    res.status(200).json(findmain);
+                    res.status(201).send({
+                        "result": 1
+                    });
                 }
             });
+
         }
     });
 }
-
 
 
 
