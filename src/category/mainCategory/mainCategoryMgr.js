@@ -17,3 +17,10 @@ exports.mainCategoryUpdate = function (req, res) {
     mainCategoryDA.mainCategoryUpdate(req, res)
 }
 
+exports.mainCategoryShow = function (req, res) {
+    mainCategoryDA.mainCategoryShow(req, res)
+}
+
+exports.mainCategoryShow = function (req, res) {
+    mainCategoryDA.mainCategoryShow(req, res)
+}

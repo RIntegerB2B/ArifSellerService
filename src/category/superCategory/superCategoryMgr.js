@@ -12,3 +12,7 @@ exports.superCategoryEdit = function (req, res) {
 exports.superCategoryDelete = function (req, res) {
     superCategoryDA.superCategoryDelete(req, res)
 }
+
+exports.superCategoryShow= function (req, res) {
+    superCategoryDA.superCategoryShow(req, res)
+}

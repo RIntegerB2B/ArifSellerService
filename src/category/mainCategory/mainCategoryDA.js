@@ -6,7 +6,7 @@ exports.mainCategoryInsert = function (req, res) {
         mainCategoryName: req.body.mainCategoryName,
         mainCategoryDescription: req.body.mainCategoryDescription
     };
-    SuperCategory.findOneAndUpdate({
+    SuperCategory.update({
             categoryName: req.body.categoryName
         }, {
             $push: {
@@ -24,6 +24,9 @@ exports.mainCategoryInsert = function (req, res) {
         }
     )
 }
+
+
+
 
 exports.mainCategoryDelete = function (req, res) {
     SuperCategory.findById(req.params.categoryId, function (err, category) {
@@ -49,6 +52,9 @@ exports.mainCategoryDelete = function (req, res) {
     });
 }
 
+
+
+
 exports.mainCategoryUpdate = function (req, res) {
     SuperCategory.findById(req.params.categoryId, function (err, category) {
         if (err) {
@@ -70,7 +76,6 @@ exports.mainCategoryUpdate = function (req, res) {
                     });
                 }
             });
-
         }
     });
 }
@@ -85,5 +90,17 @@ exports.showSuperCategory = function (req, res) {
             res.json(superCat);
         }
     });
+}
 
+
+exports.mainCategoryShow = function (req, res) {
+    SuperCategory.find({}).select(' mainCategory._id mainCategory.mainCategoryName mainCategory.mainCategoryDescription  ').exec(function (err, superCat) {
+        if (err) {
+            res.status(500).send({
+                message: "Some error occurred while retrieving notes."
+            });
+        } else {
+            res.json(superCat);
+        }
+    });
 }

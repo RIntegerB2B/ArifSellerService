@@ -33,9 +33,8 @@ exports.superCategoryEdit = function (req, res) {
                             "result": 0
                         });
                     } else {
-                        res.status(200).json({
-                            "result": 1
-                        });
+                         res.status(200).json(superCat);
+            
                     }
                 });
         }
@@ -44,7 +43,7 @@ exports.superCategoryEdit = function (req, res) {
 
 
 exports.superCategoryDelete = function (req, res) {
-    SuperCategory.findByIdAndRemove(req.body._id, function (err) {
+    SuperCategory.findByIdAndRemove(req.params.categoryId, function (err) {
         if (err) {
             res.status(500).send({
                 "result": 0
@@ -55,4 +54,18 @@ exports.superCategoryDelete = function (req, res) {
             });
         }
     });
+}
+
+
+exports.superCategoryShow = function (req, res) {
+    SuperCategory.find({}).select('categoryName  categoryDescription').exec(function (err, superCat) {
+        if (err) {
+            res.status(500).send({
+                message: "Some error occurred while retrieving notes."
+            });
+        } else {
+            res.json(superCat);
+        }
+    });
+
 }

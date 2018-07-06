@@ -7,8 +7,12 @@ const SuperCategorySchema = new mongoose.Schema({
     categoryDescription: String,
     mainCategory:[{
         mainCategoryName: String,
-    mainCategoryDescription: String
+    mainCategoryDescription: String,
+    subCategory:[{
 
+        subCategoryyName: String,
+        subCategoryDescription: String
+    }]
     }]
     
 });
