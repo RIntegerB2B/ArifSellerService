@@ -6,8 +6,8 @@ exports.mainCategoryInsert = function (req, res) {
         mainCategoryName: req.body.mainCategoryName,
         mainCategoryDescription: req.body.mainCategoryDescription
     };
-    SuperCategory.update({
-            categoryName: req.body.categoryName
+    SuperCategory.findOneAndUpdate({
+        _id: req.body._id
         }, {
             $push: {
                 mainCategory: mainCat
@@ -19,12 +19,22 @@ exports.mainCategoryInsert = function (req, res) {
                     "result": 0
                 });
             } else {
-                res.status(200).json(mainCat);
+
+               //res.status(200).json(mainCatValue.mainCategory[mainCatValue.mainCategory.length -1]);
+               SuperCategory.findById(req.body._id, function (err, superCat) {
+                if (err) {
+                    res.status(500).send({
+                        "result": 0
+                    });
+                } else {
+                   
+                    res.status(200).json(superCat.mainCategory[superCat.mainCategory.length -1]);
+                }
+            });
             }
         }
     )
 }
-
 
 
 
@@ -35,7 +45,7 @@ exports.mainCategoryDelete = function (req, res) {
                 "result": 0
             });
         } else {
-            category.mainCategory.id(req.params.mainCategoryId).remove();
+            category.mainCategory.id(req.params._id).remove();
             category.save(function (err) {
                 if (err) {
                     res.status(201).send({
@@ -80,6 +90,22 @@ exports.mainCategoryUpdate = function (req, res) {
     });
 }
 
+
+
+exports.getMainCategory = function (req, res) {
+    SuperCategory.findById(req.params.id, function (err, category) {
+        if (err) {
+            res.status(500).send({
+                "result": 0
+            });
+        } else {
+            res.status(200).json(category);
+        }
+    });
+}
+
+
+
 exports.showSuperCategory = function (req, res) {
     SuperCategory.find({}).select('categoryName ').exec(function (err, superCat) {
         if (err) {
@@ -93,7 +119,7 @@ exports.showSuperCategory = function (req, res) {
 }
 
 
-exports.mainCategoryShow = function (req, res) {
+/* exports.mainCategoryShow = function (req, res) {
     SuperCategory.find({}).select(' mainCategory._id mainCategory.mainCategoryName mainCategory.mainCategoryDescription  ').exec(function (err, superCat) {
         if (err) {
             res.status(500).send({
@@ -101,6 +127,20 @@ exports.mainCategoryShow = function (req, res) {
             });
         } else {
             res.json(superCat);
+        }
+    });
+} */
+
+
+
+exports.getCategory = function (req, res) {
+    SuperCategory.findById(req.params.id, function (err, category) {
+        if (err) {
+            res.status(500).send({
+                "result": 0
+            });
+        } else {
+            res.status(200).json(category);
         }
     });
 }

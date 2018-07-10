@@ -21,6 +21,16 @@ exports.mainCategoryShow = function (req, res) {
     mainCategoryDA.mainCategoryShow(req, res)
 }
 
-exports.mainCategoryShow = function (req, res) {
+/* exports.mainCategoryShow = function (req, res) {
     mainCategoryDA.mainCategoryShow(req, res)
+} */
+
+exports.getMainCategory = function (req, res) {
+    mainCategoryDA.getMainCategory(req, res)
+}
+
+
+
+exports.getCategory = function (req, res) {
+    mainCategoryDA.getCategory(req, res)
 }
