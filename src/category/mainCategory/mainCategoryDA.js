@@ -45,7 +45,7 @@ exports.mainCategoryDelete = function (req, res) {
                 "result": 0
             });
         } else {
-            category.mainCategory.id(req.params._id).remove();
+            category.mainCategory.id(req.params.mainCategoryId).remove();
             category.save(function (err) {
                 if (err) {
                     res.status(201).send({
