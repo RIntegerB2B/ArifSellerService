@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 const SubCategorySchema = new mongoose.Schema({
-    subCategoryyName: String,
+    subCategoryName: String,
     subCategoryDescription: String
 });
 

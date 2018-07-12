@@ -32,14 +32,7 @@ module.exports = function (app) {
     app.route('/category/:categoryId/mainCategory/:mainCategoryId')
         .put(mainCategoryMgr.mainCategoryUpdate);
 
- app.route('/mainCategoryDetails')
-        .get(mainCategoryMgr.mainCategoryShow);
 
-    app.route('/subCategory')
-        .post(subCategoryMgr.subCategoryInsert);
-
-    app.route('/mainCategoryData')
-        .get(subCategoryMgr.mainCategoryDetail);
 
      app.route('/superCategorydetail/:id')
         .get(mainCategoryMgr.getMainCategory);
@@ -47,7 +40,19 @@ module.exports = function (app) {
     app.route('/categoryData/:id')
         .get(mainCategoryMgr.getCategory);
 
-        app.route('/mainCategory/:mainCategoryId')
-        .get(subCategoryMgr.subCategoryDelete);
+    app.route('/subCategory')
+        .post(subCategoryMgr.subCategoryInsert);
+
+    app.route('/mainCategoryData')
+        .get(subCategoryMgr.mainCategoryData);
+
+     app.route('/category/:categoryId/mainCategory/:mainCategoryId/subCategory/:subCategoryId')
+        .delete(subCategoryMgr.subCategoryDelete);
+
+    app.route('/category/:categoryId/mainCategory/:mainCategoryId/subCategory/:subCategoryId')
+        .put(subCategoryMgr.subCategoryUpdate);
+
+        app.route('/mainCategoryOnSub/:id')
+        .get(subCategoryMgr.mainCategoryOnSub);
 
 }
