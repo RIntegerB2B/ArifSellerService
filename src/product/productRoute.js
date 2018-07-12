@@ -4,10 +4,9 @@ var catalogMgr = require('./catalog/catalogMgr');
 var subProductMgr = require('./subProduct/subProductMgr');
 
 module.exports = function (app) {
-   /* 
     app.route('/catalog')
         .post(catalogMgr.createCatalog);
-
+   /* 
     app.route('/catalog')
     .get(catalogMgr.getCatalog);
 
