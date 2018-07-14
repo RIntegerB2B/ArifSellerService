@@ -10,7 +10,6 @@ const ProductSchema  = new mongoose.Schema({
     cod: Boolean, // Cash on delivery avaible or not
     dispatchDesc: String, // Dispatched in 2-3 days
     watsAppDesc: String, // A complete detail about the product to share with contacts thru watsapp
-    catalogImage: Buffer,
     imageType: String
 });
 

@@ -45,7 +45,15 @@ exports.subCategoryDelete = function (req, res) {
                         "result": 1
                     });
                 } else {
-                    res.status(200).json(category)
+                    SuperCategory.find({}).select('mainCategory.subCategory.subCategoryName  mainCategory.subCategory.subCategoryDescription').exec(function (err, superCat) {
+                        if (err) {
+                            res.status(500).send({
+                                message: "Some error occurred while retrieving notes."
+                            });
+                        } else {
+                            res.status(201).json(superCat);
+                        }
+                    });
                 }
             });
 
@@ -73,7 +81,15 @@ exports.subCategoryUpdate = function (req, res) {
                         "result": 1
                     });
                 } else {
-                    res.status(200).json(category)
+                    SuperCategory.find({}).select('mainCategory.subCategoryName  mainCategory.subCategoryDescription').exec(function (err, superCat) {
+                        if (err) {
+                            res.status(500).send({
+                                message: "Some error occurred while retrieving notes."
+                            });
+                        } else {
+                            res.status(201).json(superCat);
+                        }
+                    });
                 }
             });
 

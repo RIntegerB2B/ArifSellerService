@@ -21,7 +21,7 @@ exports.superCategoryInsert = function (req, res) {
 }
 
 exports.superCategoryEdit = function (req, res) {
-    SuperCategory.findById(req.body._id, function (err, superCat) {
+    SuperCategory.findById(req.params.id, function (err, superCat) {
         if (err) return handleError(err);
         else {
             superCat.categoryName = req.body.categoryName;
@@ -33,10 +33,24 @@ exports.superCategoryEdit = function (req, res) {
                             "result": 0
                         });
                     } else {
-                         res.status(200).json(superCat);
+                        /*  res.status(200).json(SuperCategory); */
             
+
+                        SuperCategory.find({}).select('categoryName  categoryDescription').exec(function (err, superCat) {
+                            if (err) {
+                                res.status(500).send({
+                                    message: "Some error occurred while retrieving notes."
+                                });
+                            } else {
+                                res.status(200).json(superCat);
+                            }
+                        });
+
+
+
                     }
                 });
+                
         }
     });
 }
@@ -49,8 +63,14 @@ exports.superCategoryDelete = function (req, res) {
                 "result": 0
             });
         } else {
-            res.status(500).send({
-                "result": 1
+            SuperCategory.find({}).select('categoryName  categoryDescription').exec(function (err, superCat) {
+                if (err) {
+                    res.status(500).send({
+                        message: "Some error occurred while retrieving notes."
+                    });
+                } else {
+                    res.status(200).json(superCat);
+                }
             });
         }
     });

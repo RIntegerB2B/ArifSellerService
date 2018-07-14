@@ -14,8 +14,8 @@ module.exports = function (app) {
     app.route('/superCategory')
         .get(mainCategoryMgr.showSuperCategory);
 
-    app.route('/category')
-        .post(superCategoryMgr.superCategoryEdit);
+    app.route('/category/:id')
+        .put(superCategoryMgr.superCategoryEdit);
 
     app.route('/categoryDelete/:categoryId')
         .delete(superCategoryMgr.superCategoryDelete);

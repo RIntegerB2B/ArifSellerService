@@ -6,7 +6,7 @@ var subProductMgr = require('./subProduct/subProductMgr');
 module.exports = function (app) {
     app.route('/catalog')
         .post(catalogMgr.createCatalog);
-   /* 
+  
     app.route('/catalog')
     .get(catalogMgr.getCatalog);
 
@@ -22,7 +22,7 @@ module.exports = function (app) {
     app.route('/catalog/id/product')
         .post(subProductMgr.createCatalog);
 
-    app.route('/catalog/id/product')
+   /* app.route('/catalog/id/product')
     .get(subProductMgr.getProduct);
 
     app.route('/catalog/id/product/:id')
