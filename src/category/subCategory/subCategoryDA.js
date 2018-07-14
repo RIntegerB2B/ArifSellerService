@@ -1,32 +1,30 @@
-var SuperCategory=require('../../model/superCategory.model')
-var MainCategory=require('../../model/mainCategory.model')
-var SubCategory=require('../../model/subCategory.model')
+var SuperCategory = require('../../model/superCategory.model')
+var MainCategory = require('../../model/mainCategory.model')
+var SubCategory = require('../../model/subCategory.model')
 
 exports.subCategoryInsert = function (req, res) {
 
-    SuperCategory.findById(req.body.categoryId, function (err, category) {
-       
+    SuperCategory.findById(req.body._id, function (err, category) {
 
-             var mainCat=category.mainCategory.id(req.body.mainCategoryId)
-            
-            mainCat.subCategory.push({
-                subCategoryName: req.body.subCategoryName,
-        subCategoryDescription: req.body.subCategoryDescription
-            })
-             
-            category.save(function(err,result){
-                if (err) {
-                    res.status(500).send({
-                        "result":1
-                    });
-                }
-                else{
-                    res.status(500).json(result) 
-                }
-            });
-            
-        }
-    );
+
+        var mainCat = category.mainCategory.id(req.body.mainCategory.mainCategoryId)
+
+        mainCat.subCategory.push({
+            subCategoryName: req.body.mainCategory.subCategory.subCategoryName,
+            subCategoryDescription: req.body.mainCategory.subCategory.subCategoryDescription
+        })
+
+        category.save(function (err, result) {
+            if (err) {
+                res.status(500).send({
+                    "result": 1
+                });
+            } else {
+                res.status(200).json(result)
+            }
+        });
+
+    });
 
 }
 
@@ -39,23 +37,22 @@ exports.subCategoryDelete = function (req, res) {
             });
         } else {
 
-             var mainCat=category.mainCategory.id(req.params.mainCategoryId)
+            var mainCat = category.mainCategory.id(req.params.mainCategoryId)
             mainCat.subCategory.id(req.params.subCategoryId).remove()
-            category.save(function(err,result){
+            category.save(function (err, result) {
                 if (err) {
                     res.status(500).send({
-                        "result":1
+                        "result": 1
                     });
-                }
-                else{
-                    res.status(500).json(result) 
+                } else {
+                    res.status(200).json(category)
                 }
             });
-            
+
         }
     });
 
-   
+
 }
 
 exports.subCategoryUpdate = function (req, res) {
@@ -66,25 +63,24 @@ exports.subCategoryUpdate = function (req, res) {
             });
         } else {
 
-             var mainCat=category.mainCategory.id(req.params.mainCategoryId)
-           var subCat= mainCat.subCategory.id(req.params.subCategoryId);
-           subCat.subCategoryName=req.body.subCategoryName;
-           subCat.subCategoryDescription=req.body.subCategoryDescription
-            category.save(function(err,result){
+            var mainCat = category.mainCategory.id(req.params.mainCategoryId)
+            var subCat = mainCat.subCategory.id(req.params.subCategoryId);
+            subCat.subCategoryName = req.body.subCategoryName;
+            subCat.subCategoryDescription = req.body.subCategoryDescription
+            category.save(function (err, result) {
                 if (err) {
                     res.status(500).send({
-                        "result":1
+                        "result": 1
                     });
-                }
-                else{
-                    res.status(500).json(result) 
+                } else {
+                    res.status(200).json(category)
                 }
             });
-            
+
         }
     });
 
-   
+
 }
 
 
@@ -113,3 +109,17 @@ exports.mainCategoryOnSub = function (req, res) {
     });
 }
 
+
+exports.findSubCategory = function (req, res) {
+    SuperCategory.findById(req.params.categoryId, function (err, category) {
+        if (err) {
+            res.status(500).send({
+                "result": 0
+            });
+        } else {
+            var mainCat = category.mainCategory.id(req.params.mainCategoryId)
+
+            res.status(200).json(mainCat.subCategory)
+        }
+    });
+}

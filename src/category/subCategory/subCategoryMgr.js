@@ -1,5 +1,4 @@
-
-var subCategoryDA=require('./subCategoryDA')
+var subCategoryDA = require('./subCategoryDA')
 
 
 exports.subCategoryInsert = function (req, res) {
@@ -23,4 +22,8 @@ exports.mainCategoryData = function (req, res) {
 
 exports.mainCategoryOnSub = function (req, res) {
     subCategoryDA.mainCategoryOnSub(req, res)
+}
+
+exports.findSubCategory = function (req, res) {
+    subCategoryDA.findSubCategory(req, res)
 }

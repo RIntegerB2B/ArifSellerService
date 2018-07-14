@@ -34,7 +34,7 @@ module.exports = function (app) {
 
 
 
-     app.route('/superCategorydetail/:id')
+    app.route('/superCategorydetail/:id')
         .get(mainCategoryMgr.getMainCategory);
 
     app.route('/categoryData/:id')
@@ -46,13 +46,15 @@ module.exports = function (app) {
     app.route('/mainCategoryData')
         .get(subCategoryMgr.mainCategoryData);
 
-     app.route('/category/:categoryId/mainCategory/:mainCategoryId/subCategory/:subCategoryId')
+    app.route('/category/:categoryId/mainCategory/:mainCategoryId/subCategory/:subCategoryId')
         .delete(subCategoryMgr.subCategoryDelete);
 
     app.route('/category/:categoryId/mainCategory/:mainCategoryId/subCategory/:subCategoryId')
         .put(subCategoryMgr.subCategoryUpdate);
 
-        app.route('/mainCategoryOnSub/:id')
+    app.route('/mainCategoryOnSub/:id')
         .get(subCategoryMgr.mainCategoryOnSub);
 
+    app.route('/category/:categoryId/mainCategory/:mainCategoryId')
+        .get(subCategoryMgr.findSubCategory);
 }
