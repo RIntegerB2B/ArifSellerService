@@ -19,7 +19,7 @@ module.exports = function (app) {
     app.route('/catalog/:id')
         .get(catalogMgr.getCatalogById); 
     
-    app.route('/catalog/id/product')
+    app.route('/catalog/product')
         .post(subProductMgr.createCatalog);
 
    /* app.route('/catalog/id/product')

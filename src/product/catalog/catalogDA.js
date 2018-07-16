@@ -56,7 +56,16 @@ exports.updateCatalog = function (req, res) {
                                 "result": 0
                             });
                         } else {
-                             res.status(200).json(createdCatalog);
+                            Catalog.find({}).select().exec(function(err,createdCatalog){
+                                if(err){
+                                    res.status(500).json({
+                                        "result":0
+                                    })
+                                }
+                                else{
+                                    res.status(200).json(createdCatalog)
+                                }
+                            })
                 
                         }
                     });
@@ -73,9 +82,16 @@ exports.deleteCatalog = function (req, res) {
                 "result": 0
             });
         } else {
-            res.status(500).send({
-                "result": 1
-            });
+            Catalog.find({}).select().exec(function(err,createdCatalog){
+                if(err){
+                    res.status(500).json({
+                        "result":0
+                    })
+                }
+                else{
+                    res.status(200).json(createdCatalog)
+                }
+            })
         }
     });
 }
