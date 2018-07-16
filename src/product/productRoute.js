@@ -22,17 +22,17 @@ module.exports = function (app) {
     app.route('/catalog/product')
         .post(subProductMgr.createCatalog);
 
-   /* app.route('/catalog/id/product')
-    .get(subProductMgr.getProduct);
-
-    app.route('/catalog/id/product/:id')
+    app.route('/catalog/:id/product/:productId')
     .put(subProductMgr.updateProduct);
 
-    app.route('/catalog/id/product/:id')
+    app.route('/catalog/:id/product/:productId')
     .delete(subProductMgr.deleteProduct);
 
-    app.route('/catalog/id/product/:id')
+    app.route('/catalog/:id/product')
+    .get(subProductMgr.getProduct);
+
+    app.route('/catalog/:id/product/:productId')
         .get(subProductMgr.getProductById); 
-        */
+       
     
 }
