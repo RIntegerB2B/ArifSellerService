@@ -2,28 +2,52 @@ var subCategoryDA = require('./subCategoryDA')
 
 
 exports.subCategoryInsert = function (req, res) {
-    subCategoryDA.subCategoryInsert(req, res)
+    try {
+        subCategoryDA.subCategoryInsert(req, res);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 exports.subCategoryDelete = function (req, res) {
-    subCategoryDA.subCategoryDelete(req, res)
+    try {
+        subCategoryDA.subCategoryDelete(req, res);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 
 exports.subCategoryUpdate = function (req, res) {
-    subCategoryDA.subCategoryUpdate(req, res)
+    try {
+        subCategoryDA.subCategoryUpdate(req, res);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 
 exports.mainCategoryData = function (req, res) {
-    subCategoryDA.mainCategoryData(req, res)
+    try {
+        subCategoryDA.mainCategoryData(req, res);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 
 exports.mainCategoryOnSub = function (req, res) {
-    subCategoryDA.mainCategoryOnSub(req, res)
+    try {
+        subCategoryDA.mainCategoryOnSub(req, res);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 exports.findSubCategory = function (req, res) {
-    subCategoryDA.findSubCategory(req, res)
+    try {
+        subCategoryDA.findSubCategory(req, res);
+    } catch (error) {
+        console.log(error);
+    }
 }

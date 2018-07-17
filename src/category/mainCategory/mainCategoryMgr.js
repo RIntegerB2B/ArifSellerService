@@ -2,32 +2,61 @@ var mainCategoryDA = require('../../category/mainCategory/mainCategoryDA')
 
 
 exports.mainCategoryInsert = function (req, res) {
-    mainCategoryDA.mainCategoryInsert(req, res)
+    try {
+        mainCategoryDA.mainCategoryInsert(req, res);
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
 exports.mainCategoryDelete = function (req, res) {
-    mainCategoryDA.mainCategoryDelete(req, res)
+    try {
+        mainCategoryDA.mainCategoryDelete(req, res);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 exports.showSuperCategory = function (req, res) {
-    mainCategoryDA.showSuperCategory(req, res)
+    try {
+        mainCategoryDA.showSuperCategory(req, res);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 exports.mainCategoryUpdate = function (req, res) {
-    mainCategoryDA.mainCategoryUpdate(req, res)
+    try {
+        mainCategoryDA.mainCategoryUpdate(req, res);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 exports.mainCategoryShow = function (req, res) {
-    mainCategoryDA.mainCategoryShow(req, res)
+    try {
+        mainCategoryDA.mainCategoryShow(req, res);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 
 
 exports.getMainCategory = function (req, res) {
-    mainCategoryDA.getMainCategory(req, res)
+    try {
+        mainCategoryDA.getMainCategory(req, res);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 
 exports.getCategory = function (req, res) {
-    mainCategoryDA.getCategory(req, res)
+    try {
+        mainCategoryDA.getCategory(req, res);
+    } catch (error) {
+        console.log(error);
+    }
 }
