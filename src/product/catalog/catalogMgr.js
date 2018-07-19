@@ -1,15 +1,55 @@
 'use strict';
 var catalogDA = require('./catalogDA');
+const multer = require('multer');
 
 exports.createCatalog = function (req, res) {
     try {
+        const DIR = './uploads';
+
+        let storage = multer.diskStorage({
+            destination: (req, file, cb) => {
+                cb(null, DIR);
+            },
+            filename: (req, file, cb) => {
+                cb(null, file.fieldname + '-' + Date.now() + '.' + file.originalname);
+            }
+        });
+        let upload = multer({
+            storage: storage
+        });
         catalogDA.createCatalog(req, res);
     } catch (error) {
         console.log(error);
     }
 }
 
+exports.createCatalogImage = function (req, res) {
+    try {
+        const DIR = './uploads';
 
+        let storage = multer.diskStorage({
+            destination: (req, file, cb) => {
+                cb(null, DIR);
+            },
+            filename: (req, file, cb) => {
+                cb(null, file.originalname);
+            }
+        });
+        let upload = multer({
+            storage: storage
+        }).single('file');
+        upload(req,res,function(err){
+            if(err){
+                return res.status(501).json({error:err});
+            }
+            //do all database record saving activity
+            return res.json({originalname:req.file.originalname, uploadname:req.file.filename});
+        });
+       
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 exports.getCatalog = function (req, res) {

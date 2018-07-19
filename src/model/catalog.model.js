@@ -10,6 +10,7 @@ const CatalogSchema  = new mongoose.Schema({
     work: String,
     dispatch: String,
     imageType: String,
+    catalogImageName:String,
     products: [Product]
 });
 

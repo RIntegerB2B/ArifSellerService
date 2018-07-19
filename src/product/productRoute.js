@@ -6,33 +6,34 @@ var subProductMgr = require('./subProduct/subProductMgr');
 module.exports = function (app) {
     app.route('/catalog')
         .post(catalogMgr.createCatalog);
-  
+
     app.route('/catalog')
-    .get(catalogMgr.getCatalog);
+        .get(catalogMgr.getCatalog);
 
     app.route('/catalog/:id')
-    .put(catalogMgr.updateCatalog);
+        .put(catalogMgr.updateCatalog);
 
     app.route('/catalog/:id')
-    .delete(catalogMgr.deleteCatalog);
+        .delete(catalogMgr.deleteCatalog);
 
     app.route('/catalog/:id')
-        .get(catalogMgr.getCatalogById); 
-    
+        .get(catalogMgr.getCatalogById);
+
     app.route('/catalog/product')
         .post(subProductMgr.createCatalog);
 
     app.route('/catalog/:id/product/:productId')
-    .put(subProductMgr.updateProduct);
+        .put(subProductMgr.updateProduct);
 
     app.route('/catalog/:id/product/:productId')
-    .delete(subProductMgr.deleteProduct);
+        .delete(subProductMgr.deleteProduct);
 
     app.route('/catalog/:id/product')
-    .get(subProductMgr.getProduct);
+        .get(subProductMgr.getProduct);
 
     app.route('/catalog/:id/product/:productId')
-        .get(subProductMgr.getProductById); 
-       
-    
+        .get(subProductMgr.getProductById);
+
+    app.route('/catalogImage')
+        .post(catalogMgr.createCatalogImage);
 }
