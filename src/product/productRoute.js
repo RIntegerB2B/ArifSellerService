@@ -20,7 +20,7 @@ module.exports = function (app) {
         .get(catalogMgr.getCatalogById);
 
     app.route('/catalog/product')
-        .post(subProductMgr.createCatalog);
+        .post(subProductMgr.createProduct);
 
     app.route('/catalog/:id/product/:productId')
         .put(subProductMgr.updateProduct);
@@ -36,4 +36,7 @@ module.exports = function (app) {
 
     app.route('/catalogImage')
         .post(catalogMgr.createCatalogImage);
+
+    app.route('/productImage')
+        .post(subProductMgr.createProductImage);
 }

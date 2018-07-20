@@ -65,6 +65,19 @@ exports.getCatalog = function (req, res) {
 
 exports.updateCatalog = function (req, res) {
     try {
+
+        const DIR = './uploads';
+        let storage = multer.diskStorage({
+            destination: (req, file, cb) => {
+                cb(null, DIR);
+            },
+            filename: (req, file, cb) => {
+                cb(null, file.fieldname + '-' + Date.now() + '.' + file.originalname);
+            }
+        });
+        let upload = multer({
+            storage: storage
+        });
         catalogDA.updateCatalog(req, res);
     } catch (error) {
         console.log(error);

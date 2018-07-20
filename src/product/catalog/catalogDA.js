@@ -25,7 +25,9 @@ exports.getCatalog = function (req, res) {
                 "result": 0
             })
         } else {
-            res.status(200).json(createdCatalog)
+            if (createdCatalog)
+            createdCatalog.catalogImageName = appSetting.imageServerPath + createdCatalog.catalogImageName;
+        res.status(200).json(createdCatalog)
         }
     })
 
@@ -46,6 +48,7 @@ exports.updateCatalog = function (req, res) {
             createdCatalog.work = req.body.work;
             createdCatalog.dispatch = req.body.dispatch;
             createdCatalog.imageType = req.body.imageType;
+            createdCatalog.catalogImageName = req.body.catalogImageName;
 
             createdCatalog.save(
                 function (err) {

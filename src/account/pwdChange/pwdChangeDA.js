@@ -4,8 +4,6 @@ var AdminAccount = require('../../model/adminAccount.model');
 
 
 exports.pwdChangeRequest = function (req, res, someFormattedDate, randomKey) {
-
-
    // first Check email Id Matches
     AdminAccount.find({
         'emailId': req.params.emailId
@@ -13,7 +11,7 @@ exports.pwdChangeRequest = function (req, res, someFormattedDate, randomKey) {
         if (err) {
             res.status(500).send({
                 "result": 0
-            }); // if error occurs return 0
+            }); 
         } else {
             //if condition for email vaildation
             if(email.length > 0){
@@ -21,7 +19,7 @@ exports.pwdChangeRequest = function (req, res, someFormattedDate, randomKey) {
             AdminAccount.update({
                 'isActive': 0
             }, function (err) {
-                if (err) { // if it contains error return 0
+                if (err) { 
                     res.status(500).send({
                         "result": 0
                     });
@@ -29,7 +27,7 @@ exports.pwdChangeRequest = function (req, res, someFormattedDate, randomKey) {
                     AdminForgotPwd.update({
                         'isActive': 0
                     }, function (err) {
-                        if (err) { // if it contains error return 0
+                        if (err) { 
                             res.status(500).send({
                                 "result": 0
                             });
@@ -37,11 +35,11 @@ exports.pwdChangeRequest = function (req, res, someFormattedDate, randomKey) {
                             // Do the insert operation 
                             var adminForgotPwdData = new AdminForgotPwd(req.body);
                             adminForgotPwdData.Key = randomKey;
-                            adminForgotPwdData.ExpiryDate = new Date(someFormattedDate); // In Progress
+                            adminForgotPwdData.ExpiryDate = new Date(someFormattedDate); 
                             adminForgotPwdData.isActive = 1;
                             adminForgotPwdData.save(
                                 function (err) {
-                                    if (err) { // if it contains error return 0
+                                    if (err) { 
                                         res.status(500).send({
                                             "result": 0
                                         });

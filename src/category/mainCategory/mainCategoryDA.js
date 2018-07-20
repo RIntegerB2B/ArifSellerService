@@ -53,15 +53,15 @@ exports.mainCategoryDelete = function (req, res) {
                         "result": 0
                     });
                 } else {
-                    SuperCategory.find({}).select('mainCategory.mainCategoryName  mainCategory.mainCategoryDescription').exec(function (err, superCat) {
+                    SuperCategory.findById(req.params.categoryId).select('mainCategory').exec(function (err, createdCatalog) {
                         if (err) {
-                            res.status(500).send({
-                                message: "Some error occurred while retrieving notes."
-                            });
+                            res.status(500).json({
+                                "result": 0
+                            })
                         } else {
-                            res.status(200).json(superCat);
+                            res.status(200).json(createdCatalog)
                         }
-                    });
+                    })
                 }
             });
 
@@ -88,15 +88,15 @@ exports.mainCategoryUpdate = function (req, res) {
                         "result": 0
                     });
                 } else {
-                    SuperCategory.find({}).select('mainCategory.mainCategoryName  mainCategory.mainCategoryDescription').exec(function (err, superCat) {
+                    SuperCategory.findById(req.params.categoryId).select('mainCategory').exec(function (err, createdCatalog) {
                         if (err) {
-                            res.status(500).send({
-                                message: "Some error occurred while retrieving notes."
-                            });
+                            res.status(500).json({
+                                "result": 0
+                            })
                         } else {
-                            res.status(201).json(superCat);
+                            res.status(200).json(createdCatalog)
                         }
-                    });
+                    })
                 }
             });
         }

@@ -1,8 +1,8 @@
 'use strict';
 var Catalog = require('../../model/catalog.model');
+var appSetting = require('../../config/appSetting');
 
-
-exports.createCatalog = function (req, res) {
+exports.createProduct = function (req, res) {
     let product = {
         productName: req.body.productName,
         price: req.body.price,
@@ -13,7 +13,8 @@ exports.createCatalog = function (req, res) {
         cod: req.body.cod,
         dispatchDesc: req.body.dispatchDesc,
         watsAppDesc: req.body.watsAppDesc,
-        imageType: req.body.imageType
+        imageType: req.body.imageType,
+        productImageName: req.body.productImageName
     };
     Catalog.findOneAndUpdate({
             _id: req.body._id
@@ -56,12 +57,13 @@ exports.updateProduct = function (req, res) {
                 product.price = req.body.price;
                 product.sizeDescription = req.body.sizeDescription;
                 product.productTypeDesc = req.body.productTypeDesc;
-                product.size = req.body.size,
-                product.productDescription = req.body.productDescription,
-                product.cod = req.body.cod,
-                product.dispatchDesc = req.body.dispatchDesc,
-                product.watsAppDesc = req.body.watsAppDesc,
-                product.imageType = req.body.imageType
+                product.size = req.body.size;
+                product.productDescription = req.body.productDescription;
+                product.cod = req.body.cod;
+                product.dispatchDesc = req.body.dispatchDesc;
+                product.watsAppDesc = req.body.watsAppDesc;
+                product.imageType = req.body.imageType;
+                product.productImageName = req.body.productImageName;
             catalog.save(function (err) {
                 if (err) {
                     res.status(201).send({
@@ -95,9 +97,16 @@ exports.deleteProduct = function (req, res) {
                     });
                 } else {
 
-                    res.status(201).send({
-                        "result": 1
-                    });
+                    Catalog.findById(req.params.id).select('products').exec(function (err, createdCatalog) {
+                        if (err) {
+                            res.status(500).json({
+                                "result": 0
+                            })
+                        } else {
+                            res.status(200).json(createdCatalog)
+                        }
+                    })
+
                 }
             });
 
@@ -108,7 +117,7 @@ exports.deleteProduct = function (req, res) {
 
 exports.getProduct = function (req, res) {
 
-    Catalog.find({}).select('products').exec(function (err, createdCatalog) {
+    Catalog.findById(req.params.id).select('products').exec(function (err, createdCatalog) {
         if (err) {
             res.status(500).json({
                 "result": 0
@@ -130,6 +139,11 @@ exports.getProductById = function (req, res) {
             })
         } else {
             var product = createdCatalog.products.id(req.params.productId);
+            
+
+            if (product)
+            product.productImageName = appSetting.imageServerPath + product.productImageName;
+            /* res.status(200).json(createdCatalog) */
             res.status(200).json(product)
         }
     })
