@@ -123,6 +123,7 @@ exports.getProduct = function (req, res) {
                 "result": 0
             })
         } else {
+            createdCatalog.productImageName = appSetting.imageServerPath + createdCatalog.productImageName;
             res.status(200).json(createdCatalog)
         }
     })

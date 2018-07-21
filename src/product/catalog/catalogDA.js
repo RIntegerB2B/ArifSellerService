@@ -25,9 +25,12 @@ exports.getCatalog = function (req, res) {
                 "result": 0
             })
         } else {
-            if (createdCatalog)
-            createdCatalog.catalogImageName = appSetting.imageServerPath + createdCatalog.catalogImageName;
-        res.status(200).json(createdCatalog)
+            var arraylength =createdCatalog.length-1;
+            for (var i= 0; i<=arraylength; i++)
+            {
+            createdCatalog[i].catalogImageName = appSetting.imageServerPath  + createdCatalog[i].catalogImageName;
+            }
+            res.status(200).json(createdCatalog);
         }
     })
 
