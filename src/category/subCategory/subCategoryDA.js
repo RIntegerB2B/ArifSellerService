@@ -45,13 +45,15 @@ exports.subCategoryDelete = function (req, res) {
                         "result": 1
                     });
                 } else {
-                    SuperCategory.find({}).select('mainCategory.subCategory.subCategoryName  mainCategory.subCategory.subCategoryDescription').exec(function (err, superCat) {
+                    SuperCategory.findById(req.params.categoryId, function (err, category) {
                         if (err) {
                             res.status(500).send({
-                                message: "Some error occurred while retrieving notes."
+                                "result": 0
                             });
                         } else {
-                            res.status(201).json(superCat);
+                            var mainCat = category.mainCategory.id(req.params.mainCategoryId)
+                
+                            res.status(200).json(mainCat)
                         }
                     });
                 }
@@ -81,13 +83,15 @@ exports.subCategoryUpdate = function (req, res) {
                         "result": 1
                     });
                 } else {
-                    SuperCategory.find({}).select('mainCategory.subCategoryName  mainCategory.subCategoryDescription').exec(function (err, superCat) {
+                    SuperCategory.findById(req.params.categoryId, function (err, category) {
                         if (err) {
                             res.status(500).send({
-                                message: "Some error occurred while retrieving notes."
+                                "result": 0
                             });
                         } else {
-                            res.status(201).json(superCat);
+                            var mainCat = category.mainCategory.id(req.params.mainCategoryId)
+                
+                            res.status(200).json(mainCat)
                         }
                     });
                 }
@@ -135,7 +139,7 @@ exports.findSubCategory = function (req, res) {
         } else {
             var mainCat = category.mainCategory.id(req.params.mainCategoryId)
 
-            res.status(200).json(mainCat.subCategory)
+            res.status(200).json(mainCat)
         }
     });
 }
