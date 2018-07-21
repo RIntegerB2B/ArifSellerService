@@ -25,7 +25,7 @@ exports.createCatalog = function (req, res) {
 
 exports.createCatalogImage = function (req, res) {
     try {
-        const DIR = './uploads';
+        const DIR = '../uploads';
 
         let storage = multer.diskStorage({
             destination: (req, file, cb) => {
