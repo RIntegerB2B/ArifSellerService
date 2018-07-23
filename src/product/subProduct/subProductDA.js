@@ -117,14 +117,18 @@ exports.deleteProduct = function (req, res) {
 
 exports.getProduct = function (req, res) {
 
-    Catalog.findById(req.params.id).select('products').exec(function (err, createdCatalog) {
+    Catalog.findById(req.params.id).select('products').exec(function (err, product) {
         if (err) {
             res.status(500).json({
                 "result": 0
             })
         } else {
-            createdCatalog.productImageName = appSetting.imageServerPath + createdCatalog.productImageName;
-            res.status(200).json(createdCatalog)
+            var arraylength =product.products.length-1;
+            for (var i= 0; i<=arraylength; i++)
+            {
+                product.products[i] .productImageName= appSetting.imageServerPath  + product.products[i] .productImageName;
+            }
+            res.status(200).json(product);
         }
     })
 }
@@ -145,7 +149,9 @@ exports.getProductById = function (req, res) {
             if (product)
             product.productImageName = appSetting.imageServerPath + product.productImageName;
             /* res.status(200).json(createdCatalog) */
-            res.status(200).json(product)
+            res.status(200).json(product);
+
+            
         }
     })
 }
