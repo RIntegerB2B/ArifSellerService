@@ -5,5 +5,5 @@ module.exports = function (app) {
     app.route('/notification')
         .post(notificationMgr.addPushSubscriber);
         app.route('/bookingStatus')
-        .post(notificationMgr.bookingStatus);
+        .get(notificationMgr.bookingStatus);
 }

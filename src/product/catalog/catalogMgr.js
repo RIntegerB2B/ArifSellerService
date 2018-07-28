@@ -40,6 +40,7 @@ exports.createCatalogImage = function (req, res) {
         }).single('file');
         upload(req,res,function(err){
             if(err){
+                console.log(err);
                 return res.status(501).json({error:err});
             }
             //do all database record saving activity

@@ -3,6 +3,8 @@
 # compiled output
 /src/dist
 
+# Uploaded  images
+/uploads
 
 # dependencies
 /node_modules
