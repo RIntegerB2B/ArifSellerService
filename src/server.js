@@ -9,9 +9,9 @@ var http = require('http');
 var https = require('https');
 //var privateKey  = fs.readFileSync('./ssl-cer/ec2-13-126-16-163.ap-south-1.compute.amazonaws.com.key', 'utf8');
 //var certificate = fs.readFileSync('./ssl-cer/ec2-13-126-16-163.ap-south-1.compute.amazonaws.com.crt', 'utf8');
-var privateKey  = fs.readFileSync('/home/ubuntu/my-folder/app/service-seller/src/ssl-cer/ec2-13-126-16-163.ap-south-1.compute.amazonaws.com.key', 'utf8');
-var certificate = fs.readFileSync('/home/ubuntu/my-folder/app/service-seller/src/ssl-cer/ec2-13-126-16-163.ap-south-1.compute.amazonaws.com.crt', 'utf8');
-var credentials = {key: privateKey, cert: certificate};
+//var privateKey  = fs.readFileSync('/home/ubuntu/my-folder/app/service-seller/src/ssl-cer/ec2-13-126-16-163.ap-south-1.compute.amazonaws.com.key', 'utf8');
+//var certificate = fs.readFileSync('/home/ubuntu/my-folder/app/service-seller/src/ssl-cer/ec2-13-126-16-163.ap-south-1.compute.amazonaws.com.crt', 'utf8');
+//var credentials = {key: privateKey, cert: certificate};
 
 var routes=require('./route');
 
@@ -26,10 +26,10 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 routes.loadRoutes(app);
 var httpServer = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
+//var httpsServer = https.createServer(credentials, app);
 
 httpServer.listen(3001);
-httpsServer.listen(3444);
+//httpsServer.listen(3444);
 
 
 var mongoDbConfig = require('./config/mongoDatabase.config');
