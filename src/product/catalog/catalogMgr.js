@@ -1,10 +1,11 @@
 'use strict';
 var catalogDA = require('./catalogDA');
 const multer = require('multer');
+var appSetting = require('../../config/appSetting');
 
 exports.createCatalog = function (req, res) {
     try {
-        const DIR = './uploads';
+        const DIR = appSetting.imageUploadPath;
 
         let storage = multer.diskStorage({
             destination: (req, file, cb) => {
