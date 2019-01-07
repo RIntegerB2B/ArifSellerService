@@ -2,6 +2,7 @@
 var catalogDA = require('./catalogDA');
 const multer = require('multer');
 var appSetting = require('../../config/appSetting');
+var mkdirp = require('mkdirp');
 
 exports.createCatalog = function (req, res) {
     try {
@@ -27,6 +28,8 @@ exports.createCatalog = function (req, res) {
 exports.createCatalogImage = function (req, res) {
     try {
         const DIR = appSetting.imageUploadPath;
+
+        mkdirp(DIR);
 
         let storage = multer.diskStorage({
             destination: (req, file, cb) => {
