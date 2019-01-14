@@ -34,15 +34,6 @@ exports.mainCategoryUpdate = function (req, res) {
     }
 }
 
-exports.mainCategoryShow = function (req, res) {
-    try {
-        mainCategoryDA.mainCategoryShow(req, res);
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-
 
 exports.getMainCategory = function (req, res) {
     try {
@@ -53,10 +44,3 @@ exports.getMainCategory = function (req, res) {
 }
 
 
-exports.getCategory = function (req, res) {
-    try {
-        mainCategoryDA.getCategory(req, res);
-    } catch (error) {
-        console.log(error);
-    }
-}

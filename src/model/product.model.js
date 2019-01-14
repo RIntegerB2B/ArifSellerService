@@ -3,9 +3,7 @@ var mongoose = require('mongoose');
 const ProductSchema  = new mongoose.Schema({
     productName: String,
     price: Number,
-    sizeDescription: String, //Free Size available
-    productTypeDesc: String,
-    size: String, // (L*W) - 55cm * 44cm
+    shortDescription: String, //Free Size available
     productDescription: String,
     cod: String, // Cash on delivery avaible or not
     dispatchDesc: String, // Dispatched in 2-3 days
@@ -14,4 +12,5 @@ const ProductSchema  = new mongoose.Schema({
     productImageName: String
 });
 
-module.exports = ProductSchema;
+const Product = mongoose.model('product', ProductSchema);
+module.exports = Product;

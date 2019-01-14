@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Product = require('./product.model');
+/* var Product = require('./product.model'); */
 
 /* const CatalogSchema  = new mongoose.Schema({
     catalogName: String,
@@ -21,7 +21,7 @@ const CatalogSchema  = new mongoose.Schema({
     styleCode: String,
     moq: String,
     catalogDescription: String,
-    products: [Product]
+    /* products: [Product] */
 });
 
 const Catalog = mongoose.model('catalog', CatalogSchema);

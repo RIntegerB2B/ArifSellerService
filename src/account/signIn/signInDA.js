@@ -27,7 +27,6 @@ exports.createContent = function (req, res) {
             console.log(err);
         } else {
             res.send(contentData);
-            console.log(contentData);
         }
     });
 };

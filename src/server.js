@@ -1,6 +1,6 @@
 var express = require('express'),
     app = express(),
-    port = process.env.PORT || 3001,
+    port = process.env.PORT || 3031,
     bodyParser = require('body-parser');
 var cors = require('cors');
 var exec = require('child_process').exec;
@@ -28,7 +28,7 @@ routes.loadRoutes(app);
 var httpServer = http.createServer(app);
 //var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(3001);
+httpServer.listen(3031);
 //httpsServer.listen(3444);
 
 
@@ -50,4 +50,4 @@ app.get('/test', function (req, res) {
     res.send("Success!");
 })
 
-console.log('Seller Service started on: ' + port);
+console.log('Arif Seller Service started on: ' + port);

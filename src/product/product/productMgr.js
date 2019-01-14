@@ -1,10 +1,10 @@
 'use strict';
-var subProductDA = require('./subProductDA');
+var productDA = require('./productDA');
 const multer = require('multer');
 
 exports.createProduct = function (req, res) {
     try {
-        const DIR = './uploads';
+        const DIR = './products';
         let storage = multer.diskStorage({
             destination: (req, file, cb) => {
                 cb(null, DIR);
@@ -16,7 +16,7 @@ exports.createProduct = function (req, res) {
         let upload = multer({
             storage: storage
         });
-        subProductDA.createProduct(req, res);
+        productDA.createProduct(req, res);
     } catch (error) {
         console.log(error);
     }
@@ -65,7 +65,7 @@ exports.updateProduct = function (req, res) {
         let upload = multer({
             storage: storage
         });
-        subProductDA.updateProduct(req, res);
+        productDA.updateProduct(req, res);
     } catch (error) {
         console.log(error);
     }
@@ -74,7 +74,7 @@ exports.updateProduct = function (req, res) {
 
 exports.deleteProduct = function (req, res) {
     try {
-        subProductDA.deleteProduct(req, res);
+        productDA.deleteProduct(req, res);
     } catch (error) {
         console.log(error);
     }
@@ -82,7 +82,7 @@ exports.deleteProduct = function (req, res) {
 
 exports.getProduct = function (req, res) {
     try {
-        subProductDA.getProduct(req, res);
+        productDA.getProduct(req, res);
     } catch (error) {
         console.log(error);
     }
@@ -92,7 +92,7 @@ exports.getProduct = function (req, res) {
 
 exports.getProductById = function (req, res) {
     try {
-        subProductDA.getProductById(req, res);
+        productDA.getProductById(req, res);
     } catch (error) {
         console.log(error);
     }

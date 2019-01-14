@@ -132,28 +132,4 @@ exports.showSuperCategory = function (req, res) {
 }
 
 
-/* exports.mainCategoryShow = function (req, res) {
-    SuperCategory.find({}).select(' mainCategory._id mainCategory.mainCategoryName mainCategory.mainCategoryDescription  ').exec(function (err, superCat) {
-        if (err) {
-            res.status(500).send({
-                message: "Some error occurred while retrieving notes."
-            });
-        } else {
-            res.json(superCat);
-        }
-    });
-} */
 
-
-
-exports.getCategory = function (req, res) {
-    SuperCategory.findById(req.params.id, function (err, category) {
-        if (err) {
-            res.status(500).send({
-                "result": 0
-            });
-        } else {
-            res.status(200).json(category);
-        }
-    });
-}

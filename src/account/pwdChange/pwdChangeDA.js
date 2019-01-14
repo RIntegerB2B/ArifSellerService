@@ -84,28 +84,7 @@ exports.pwdChangeResetPwd = function (req, res) {
 };
  
 
-/*exports.pwdChangeReset = function (req, res) {
-    // Update Pwd and isActive in adminaccount collection
-    router.put('/savepassword', function(req, res) {
-		AdminAccount.findOne({ username: req.body.username }).select('username password key').exec(function(err, adminaccount) {
-			if (err) throw err; // Throw error if cannot connect
-			if (req.body.password == null || req.body.password == '') {
-				res.json({ success: false, message: 'Password not provided' });
-			} else {
-				adminaccount.password = req.body.password; // Save user's new password to the user object
-				adminaccount.Key = false; // Clear user's resettoken 
-				// Save user's new data
-				adminaccount.save(function(err) {
-					if (err) {
-						res.json({ success: false, message: err });
-					} else {
-						res.json({ success: true, message: 'Password has been reset!' }); // Return success message
-					}
-				});
-			}
-		});
-	});
-}; */
+
 
 exports.pwdChangeReset = function (req, res) {
     // Check whether the given Key is valid or not
