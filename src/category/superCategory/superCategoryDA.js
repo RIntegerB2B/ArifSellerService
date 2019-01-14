@@ -15,7 +15,15 @@ superCategoryInsert = function (req, res) {
                     "result": 0
                 });
             } else {
-                res.status(200).json(superCat);
+                SuperCategory.find({}).select('categoryName  categoryDescription').exec(function (err, superCat) {
+                    if (err) {
+                        res.status(500).send({
+                            message: "Some error occurred while retrieving notes."
+                        });
+                    } else {
+                        res.json(superCat);
+                    }
+                });
             }
         });
 
