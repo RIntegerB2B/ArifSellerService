@@ -1,21 +1,12 @@
 'use strict';
 var productDA = require('./productDA');
 const multer = require('multer');
+var fs = require('fs');
+var mkdirp = require('mkdirp');
+var appSetting = require('../../config/appSetting');
 
 exports.createProduct = function (req, res) {
     try {
-        const DIR = './products';
-        let storage = multer.diskStorage({
-            destination: (req, file, cb) => {
-                cb(null, DIR);
-            },
-            filename: (req, file, cb) => {
-                cb(null, file.fieldname + '-' + Date.now() + '.' + file.originalname);
-            }
-        });
-        let upload = multer({
-            storage: storage
-        });
         productDA.createProduct(req, res);
     } catch (error) {
         console.log(error);
@@ -24,11 +15,12 @@ exports.createProduct = function (req, res) {
 
 exports.createProductImage = function (req, res) {
     try {
-        const DIR = './uploads';
-
+        const DIR = appSetting.productUploadPath;
+        const PATH = DIR + '/' +  req.params.skucode;
+mkdirp(PATH);
         let storage = multer.diskStorage({
             destination: (req, file, cb) => {
-                cb(null, DIR);
+                cb(null, PATH);
             },
             filename: (req, file, cb) => {
                 cb(null, file.originalname);
@@ -39,10 +31,9 @@ exports.createProductImage = function (req, res) {
         }).single('file');
         upload(req,res,function(err){
             if(err){
-                return res.status(501).json({error:err});
+                 console.log(err);
             }
-            //do all database record saving activity
-            return res.json({originalname:req.file.originalname, uploadname:req.file.filename});
+           /*  return res.json({originalname:req.file.originalname, uploadname:req.file.filename}); */
         });
        
     } catch (error) {

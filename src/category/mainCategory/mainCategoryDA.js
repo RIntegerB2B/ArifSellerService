@@ -20,15 +20,13 @@ exports.mainCategoryInsert = function (req, res) {
                 });
             } else {
 
-               //res.status(200).json(mainCatValue.mainCategory[mainCatValue.mainCategory.length -1]);
                SuperCategory.findById(req.body._id, function (err, superCat) {
                 if (err) {
                     res.status(500).send({
                         "result": 0
                     });
                 } else {
-                   
-                    res.status(200).json(superCat.mainCategory[superCat.mainCategory.length -1]);
+                   console.log(superCat.mainCategory);
                 }
             });
             }
@@ -59,7 +57,7 @@ exports.mainCategoryDelete = function (req, res) {
                                 "result": 0
                             })
                         } else {
-                            res.status(200).json(createdCatalog)
+                            res.status(200).json(createdCatalog.mainCategory)
                         }
                     })
                 }
