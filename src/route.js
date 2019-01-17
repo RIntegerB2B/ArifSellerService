@@ -3,6 +3,7 @@ var categoryRoutes = require('./category/categoryRoute');
 var productRoutes = require('./product/productRoute');
 var buyerRoutes = require('./buyer/buyerRoute');
 var settingRoutes = require('./settings/settingsRoute');
+var moqRoutes = require('./moq/moqRoute');
 
 exports.loadRoutes = function (app) {
     accountRoutes(app);
@@ -10,5 +11,6 @@ exports.loadRoutes = function (app) {
     productRoutes(app);
     buyerRoutes(app);
     settingRoutes(app);
+    moqRoutes(app);
 };
 

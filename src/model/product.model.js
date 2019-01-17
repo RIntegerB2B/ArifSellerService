@@ -9,7 +9,8 @@ const ProductSchema  = new mongoose.Schema({
     color: String, 
     styleCode: String, 
     skuCode: String, 
-    primeImageName: String,
+    productImageName: [String],
+    mainCategory: [String]
 });
 
 

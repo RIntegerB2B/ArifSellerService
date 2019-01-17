@@ -7,7 +7,10 @@ var appSetting = require('../../config/appSetting');
 
 exports.createProduct = function (req, res) {
     try {
+
         productDA.createProduct(req, res);
+
+
     } catch (error) {
         console.log(error);
     }
@@ -16,26 +19,30 @@ exports.createProduct = function (req, res) {
 exports.createProductImage = function (req, res) {
     try {
         const DIR = appSetting.productUploadPath;
-        const PATH = DIR + '/' +  req.params.skucode;
-mkdirp(PATH);
+        const PATH = DIR + '/' + req.params.skuCode;
+        mkdirp(PATH);
         let storage = multer.diskStorage({
             destination: (req, file, cb) => {
                 cb(null, PATH);
+                productDA.createProductImage(req,file,res);
             },
             filename: (req, file, cb) => {
                 cb(null, file.originalname);
             }
         });
+
         let upload = multer({
             storage: storage
-        }).single('file');
-        upload(req,res,function(err){
-            if(err){
-                 console.log(err);
+        }).array('uploads[]', 20); //only 20 images can be uploaded
+        upload(req, res, function (err) {
+            if (err) {
+                console.log(err);
+                return res.status(501).json({
+                    error: err
+                });
             }
-           /*  return res.json({originalname:req.file.originalname, uploadname:req.file.filename}); */
         });
-       
+
     } catch (error) {
         console.log(error);
     }

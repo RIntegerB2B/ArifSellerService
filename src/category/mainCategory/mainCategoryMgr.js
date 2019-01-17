@@ -43,4 +43,12 @@ exports.getMainCategory = function (req, res) {
     }
 }
 
+exports.getAllMainCategory = function (req, res) {
+    try {
+        mainCategoryDA.getAllMainCategory(req, res);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 

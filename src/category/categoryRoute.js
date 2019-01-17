@@ -32,5 +32,8 @@ module.exports = function (app) {
     app.route('/superCategorydetail/:id')
         .get(mainCategoryMgr.getMainCategory);
 
+        app.route('/showMainCategory')
+        .get(mainCategoryMgr.getAllMainCategory)
+
 
 }

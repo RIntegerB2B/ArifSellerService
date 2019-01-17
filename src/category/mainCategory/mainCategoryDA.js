@@ -115,7 +115,23 @@ exports.getMainCategory = function (req, res) {
     });
 }
 
-
+exports.getAllMainCategory = function (req, res) {
+    var mainCategoryVal = [];
+    SuperCategory.find({}, {mainCategory:1}).select().exec(function (err, superCat) {
+        if (err) {
+            res.status(500).send({
+                message: "Some error occurred while retrieving notes."
+            });
+        } else {
+           /*  res.status(200).json(superCat); */
+           var superCatLength = superCat.length - 1;
+           for (var i =0; i <= superCatLength; i++) {
+            mainCategoryVal.push(superCat[i].mainCategory);
+           }
+            res.status(200).json(mainCategoryVal);
+        }
+    });
+}
 
 exports.showSuperCategory = function (req, res) {
     SuperCategory.find({}).select('categoryName ').exec(function (err, superCat) {

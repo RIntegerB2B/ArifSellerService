@@ -39,6 +39,6 @@ module.exports = function (app) {
     app.route('/product/:productId')
         .get(productMgr.getProductById);
 
-    app.route('/productImage/:skucode')
+    app.route('/productImage/:skuCode')
         .put(productMgr.createProductImage);
 }
