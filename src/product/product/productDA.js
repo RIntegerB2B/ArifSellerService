@@ -39,12 +39,7 @@ exports.createProductImage = function (req, file, res) {
 
         } else {
 
-            var ID = file.originalname;
-            var i = productDetail.productImageName.indexOf(ID);
-            if (i > -1) {
-                console.log('Exist');
-            } else {
-                productDetail.productImageName.push(file.originalname);
+            productDetail.productImageName.push(file.originalname);
                 productDetail.save(function (err, data) {
                     if (err) {
                         res.status(500).send({
@@ -54,7 +49,6 @@ exports.createProductImage = function (req, file, res) {
                         /*  console.log(data); */
                     }
                 })
-            }
 
         }
     });
@@ -95,7 +89,7 @@ exports.deleteProduct = function (req, res) {
                 "result": 0
             });
         } else {
-            const PATH = appSetting.productUploadPath + '/' + req.params.skucode;
+            const PATH = appSetting.productUploadPath + '/' +  req.params.styleCode + '/' + req.params.skucode;
             rmdir(PATH, function (err, paths) {
                 if (err) {
                     res.status(500).send({
@@ -113,7 +107,7 @@ exports.deleteProduct = function (req, res) {
                                 var productImages = productData[i].productImageName;
                                 var productImageLength = productImages.length - 1;
                                 for (var j = 0; j <= productImageLength; j++) {
-                                    productData[i].productImageName[j] = appSetting.productServerPath + productData[i].skuCode + '/' + productData[i].productImageName[j];
+                                    productData[i].productImageName[j] = appSetting.productServerPath + productData[i].styleCode + '/' + productData[i].skuCode + '/' + productData[i].productImageName[j];
                                 }
                             }
                             res.status(200).json(productData);
@@ -140,7 +134,7 @@ exports.getProduct = function (req, res) {
                 var productImages = productData[i].productImageName;
                 var productImageLength = productImages.length - 1;
                 for (var j = 0; j <= productImageLength; j++) {
-                    productData[i].productImageName[j] = appSetting.productServerPath + productData[i].skuCode + '/' + productData[i].productImageName[j];
+                    productData[i].productImageName[j] = appSetting.productServerPath + productData[i].styleCode + '/' + productData[i].skuCode + '/' + productData[i].productImageName[j];
                 }
             }
             res.status(200).json(productData);
@@ -152,15 +146,18 @@ exports.getProduct = function (req, res) {
 
 exports.getProductById = function (req, res) {
 
-    Product.findById(req.params.productId).select().exec(function (err, productDetails) {
+    Product.find(
+        {'_id':req.params.productId },function (err, productDetails) {
         if (err) {
             res.status(500).json({
                 "result": 0
             })
         } else {
-            productDetails.primeImageName = appSetting.productServerPath + productDetails.skuCode + '/' + productDetails.primeImageName;
-            res.status(200).json(productDetails);
-
+            var productDetailsLength =  productDetails[0].productImageName.length - 1;
+            for(var i = 0 ; i <= productDetailsLength; i++){
+                productDetails[0].productImageName[i] = appSetting.productServerPath + productDetails[0].styleCode + '/' +  productDetails[0].skuCode + '/' + productDetails[0].productImageName[i];
+            }
+            res.status(200).json(productDetails[0]);
 
         }
     })

@@ -19,11 +19,13 @@ exports.createProduct = function (req, res) {
 exports.createProductImage = function (req, res) {
     try {
         const DIR = appSetting.productUploadPath;
-        const PATH = DIR + '/' + req.params.skuCode;
+        const PATH = DIR + '/' + req.params.styleCode ;
         mkdirp(PATH);
+        const PATH1 = PATH +  '/' + req.params.skuCode + '/';
+       mkdirp(PATH1);
         let storage = multer.diskStorage({
             destination: (req, file, cb) => {
-                cb(null, PATH);
+                cb(null, PATH1);
                 productDA.createProductImage(req,file,res);
             },
             filename: (req, file, cb) => {

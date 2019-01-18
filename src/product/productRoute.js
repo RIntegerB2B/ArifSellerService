@@ -30,7 +30,7 @@ module.exports = function (app) {
     app.route('/product/:productId')
         .put(productMgr.updateProduct);
 
-    app.route('/product/:productId/sku/:skucode')
+    app.route('/product/:productId/stylecode/:styleCode/sku/:skucode')
         .delete(productMgr.deleteProduct);
 
     app.route('/product')
@@ -39,6 +39,6 @@ module.exports = function (app) {
     app.route('/product/:productId')
         .get(productMgr.getProductById);
 
-    app.route('/productImage/:skuCode')
+    app.route('/product/:styleCode/images/:skuCode')
         .put(productMgr.createProductImage);
 }
