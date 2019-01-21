@@ -85,7 +85,13 @@ exports.getProduct = function (req, res) {
         console.log(error);
     }
 }
-
+exports.relatedProducts = function (req, res) {
+    try {
+        productDA.relatedProducts(req, res);
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 exports.getProductById = function (req, res) {

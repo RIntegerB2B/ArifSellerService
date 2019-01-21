@@ -36,9 +36,14 @@ module.exports = function (app) {
     app.route('/product')
         .get(productMgr.getProduct);
 
+        app.route('/relatedproducts/:stylecode/product/:id')
+        .get(productMgr.relatedProducts);
+
     app.route('/product/:productId')
         .get(productMgr.getProductById);
 
     app.route('/productimages/:skuCode')
         .put(productMgr.createProductImage);
+
+
 }

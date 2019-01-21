@@ -7,14 +7,14 @@ var mkdirp = require('mkdirp');
 
 exports.createProduct = function (req, res) {
     var productData = new Product(req.body);
-    productData.productTitle = req.body.productTitle,
+   /*  productData.productTitle = req.body.productTitle,
         productData.productName = req.body.productName,
         productData.shortDescription = req.body.shortDescription,
         productData.productDescription = req.body.productDescription,
         productData.price = req.body.price,
         productData.color = req.body.color,
         productData.styleCode = req.body.styleCode,
-        productData.skuCode = req.body.skuCode,
+        productData.skuCode = req.body.skuCode, */
         productData.mainCategory.push(req.body.mainCategory) ,
         productData.save(
             function (err, productDetails) {
@@ -147,7 +147,29 @@ exports.getProduct = function (req, res) {
         }
     });
 }
+exports.relatedProducts = function (req, res) {
+    Product.find(
+        {'styleCode':req.params.stylecode,
+     },function (err, productData) {
+        if (err) {
+            console.log(err);
+            res.status(500).json({
+                "result": 0
+            })
+        } else {
+            var productLength = productData.length - 1;
+            for (var i = 0; i <= productLength; i++) {
+                var productImages = productData[i].productImageName;
+                var productImageLength = productImages.length - 1;
+                for (var j = 0; j <= productImageLength; j++) {
+                    productData[i].productImageName[j] = appSetting.productServerPath +  productData[i].skuCode + '/' + productData[i].productImageName[j];
+                }
+            }
+            res.status(200).json(productData);
 
+        }
+    })
+}
 
 
 exports.getProductById = function (req, res) {
