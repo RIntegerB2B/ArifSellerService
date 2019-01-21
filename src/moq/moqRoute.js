@@ -8,4 +8,10 @@ module.exports = function (app) {
 
         app.route('/addMoq/:moqid/product/:productid')
         .get(moqMgr.addProducts);
+
+        app.route('/moqs/:id')
+        .delete(moqMgr.deleteMoq);
+
+        app.route('/moqs/:id/product')
+        .get(moqMgr.getProducts)
 }

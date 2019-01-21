@@ -10,8 +10,6 @@ module.exports = function (app) {
     app.route('/admin/validate')
         .post(signInMgr.signInToSite);
         
-
-    
         app.route('/pwdChange/:emailId')
         .get(pwdChangeMgr.pwdChangeRequest);
         

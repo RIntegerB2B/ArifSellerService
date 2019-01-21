@@ -24,5 +24,21 @@ exports.addProducts = function (req, res) {
     }
 }
 
+exports.deleteMoq = function (req, res) {
+    try {
+        moqDA.deleteMoq(req, res);
+    } catch (error) {
+        console.log(error);
+    }
+}
+exports.getProducts = function (req, res) {
+    try {
+        moqDA.getProducts(req, res);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
 
 
