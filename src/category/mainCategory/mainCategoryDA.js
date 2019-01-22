@@ -123,7 +123,6 @@ exports.getAllMainCategory = function (req, res) {
                 message: "Some error occurred while retrieving notes."
             });
         } else {
-           /*  res.status(200).json(superCat); */
            var superCatLength = superCat.length - 1;
            for (var i =0; i <= superCatLength; i++) {
             mainCategoryVal.push(superCat[i].mainCategory);
