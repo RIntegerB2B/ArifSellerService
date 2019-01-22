@@ -39,7 +39,4 @@ module.exports = function(app) {
     app.route('/editpromotions/:id')
     .put(promotionsMgr.editPromotions);
 
-
-
-
 }
