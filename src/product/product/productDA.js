@@ -7,15 +7,15 @@ var mkdirp = require('mkdirp');
 
 exports.createProduct = function (req, res) {
     var productData = new Product(req.body);
-   /*  productData.productTitle = req.body.productTitle,
-        productData.productName = req.body.productName,
-        productData.shortDescription = req.body.shortDescription,
-        productData.productDescription = req.body.productDescription,
-        productData.price = req.body.price,
-        productData.color = req.body.color,
-        productData.styleCode = req.body.styleCode,
-        productData.skuCode = req.body.skuCode, */
-        productData.mainCategory.push(req.body.mainCategory) ,
+    /*  productData.productTitle = req.body.productTitle,
+         productData.productName = req.body.productName,
+         productData.shortDescription = req.body.shortDescription,
+         productData.productDescription = req.body.productDescription,
+         productData.price = req.body.price,
+         productData.color = req.body.color,
+         productData.styleCode = req.body.styleCode,
+         productData.skuCode = req.body.skuCode, */
+    productData.mainCategory.push(req.body.mainCategory),
         productData.save(
             function (err, productDetails) {
                 if (err) { // if it contains error return 0
@@ -38,10 +38,23 @@ exports.createProductImage = function (req, file, res) {
             console.log(err);
 
         } else {
-            var ID = file.originalname;
-            var i = productDetail.productImageName.indexOf(ID);
-            if (i > -1) {
-                console.log('Exist');
+            if (productDetail.productImageName.length !== 0) {
+                var ID = file.originalname;
+                var i = productDetail.productImageName.indexOf(ID);
+                if (i > -1) {
+                    console.log('Exist');
+                } else {
+                    productDetail.productImageName.push(file.originalname);
+                    productDetail.save(function (err, data) {
+                        if (err) {
+                            res.status(500).send({
+                                "result": 0
+                            });
+                        } else {
+                            /*  console.log(data); */
+                        }
+                    })
+                }
             } else {
                 productDetail.productImageName.push(file.originalname);
                 productDetail.save(function (err, data) {
@@ -54,7 +67,7 @@ exports.createProductImage = function (req, file, res) {
                     }
                 })
             }
-           
+
 
         }
     });
@@ -95,7 +108,7 @@ exports.deleteProduct = function (req, res) {
                 "result": 0
             });
         } else {
-            const PATH = appSetting.productUploadPath +'/' + req.params.skucode;
+            const PATH = appSetting.productUploadPath + '/' + req.params.skucode;
             rmdir(PATH, function (err, paths) {
                 if (err) {
                     res.status(500).send({
@@ -110,10 +123,10 @@ exports.deleteProduct = function (req, res) {
                         } else {
                             var productLength = productData.length - 1;
                             for (var i = 0; i <= productLength; i++) {
-                                var productImages = productData[i].productImageName;
+                                var productImages = productData[i].productImageName.sort();
                                 var productImageLength = productImages.length - 1;
                                 for (var j = 0; j <= productImageLength; j++) {
-                                    productData[i].productImageName[j] = appSetting.productServerPath +  productData[i].skuCode + '/' + productData[i].productImageName[j];
+                                    productData[i].productImageName[j] = appSetting.productServerPath + productData[i].skuCode + '/' + productData[i].productImageName[j];
                                 }
                             }
                             res.status(200).json(productData);
@@ -137,10 +150,10 @@ exports.getProduct = function (req, res) {
         } else {
             var productLength = productData.length - 1;
             for (var i = 0; i <= productLength; i++) {
-                var productImages = productData[i].productImageName;
+                var productImages = productData[i].productImageName.sort();
                 var productImageLength = productImages.length - 1;
                 for (var j = 0; j <= productImageLength; j++) {
-                    productData[i].productImageName[j] = appSetting.productServerPath +  productData[i].skuCode + '/' + productData[i].productImageName[j];
+                    productData[i].productImageName[j] = appSetting.productServerPath + productData[i].skuCode + '/' + productData[i].productImageName[j];
                 }
             }
             res.status(200).json(productData);
@@ -148,9 +161,9 @@ exports.getProduct = function (req, res) {
     });
 }
 exports.relatedProducts = function (req, res) {
-    Product.find(
-        {'styleCode':req.params.stylecode,
-     },function (err, productData) {
+    Product.find({
+        'styleCode': req.params.stylecode,
+    }, function (err, productData) {
         if (err) {
             console.log(err);
             res.status(500).json({
@@ -159,10 +172,10 @@ exports.relatedProducts = function (req, res) {
         } else {
             var productLength = productData.length - 1;
             for (var i = 0; i <= productLength; i++) {
-                var productImages = productData[i].productImageName;
+                var productImages = productData[i].productImageName.sort();
                 var productImageLength = productImages.length - 1;
                 for (var j = 0; j <= productImageLength; j++) {
-                    productData[i].productImageName[j] = appSetting.productServerPath +  productData[i].skuCode + '/' + productData[i].productImageName[j];
+                    productData[i].productImageName[j] = appSetting.productServerPath + productData[i].skuCode + '/' + productData[i].productImageName[j];
                 }
             }
             res.status(200).json(productData);
@@ -174,15 +187,16 @@ exports.relatedProducts = function (req, res) {
 
 exports.getProductById = function (req, res) {
 
-    Product.find(
-        {'_id':req.params.productId },function (err, productDetails) {
+    Product.find({
+        '_id': req.params.productId
+    }, function (err, productDetails) {
         if (err) {
             res.status(500).json({
                 "result": 0
             })
         } else {
-            var productDetailsLength =  productDetails[0].productImageName.length - 1;
-            for(var i = 0 ; i <= productDetailsLength; i++){
+            var productDetailsLength = productDetails[0].productImageName.length - 1;
+            for (var i = 0; i <= productDetailsLength; i++) {
                 productDetails[0].productImageName[i] = appSetting.productServerPath + productDetails[0].skuCode + '/' + productDetails[0].productImageName[i];
             }
             res.status(200).json(productDetails[0]);

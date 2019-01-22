@@ -114,28 +114,7 @@ exports.getMainCategory = function (req, res) {
     }
   });
 }
-/* exports.getAllMainCategory = function (req, res) {
-    SuperCategory.aggregate(
-        [
-           {
-             $group : {
-                _id : "$mainCategory",
-             }
-           }
-        ]
-     ), function( err, groups)
-     {
-         if(err)
-         {
 
-         }
-         else {
-             console.log(groups);
-         }
-     }
-    
-    
-} */
 
 exports.getAllMainCategory = function (req, res) {
   var mainCategoryVal = [];
