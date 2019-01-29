@@ -2,6 +2,7 @@
 var adsMgr  = require('./ads/adsMgr');
 var bannersMgr = require('./banner/bannerMgr');
 var promotionsMgr = require('./promotions/promotionsMgr');
+var regionMgr = require('./region/regionMgr');
 
 module.exports = function(app) {
 
@@ -39,4 +40,15 @@ module.exports = function(app) {
     app.route('/editpromotions/:id')
     .put(promotionsMgr.editPromotions);
 
+
+     // region 
+
+     app.route('/regions')
+     .post(regionMgr.createRegion);
+
+     app.route('/regions')
+     .get(regionMgr.getRegions);
+
+     app.route('/deleteregions/:id')
+    .delete(regionMgr.deleteRegions);
 }

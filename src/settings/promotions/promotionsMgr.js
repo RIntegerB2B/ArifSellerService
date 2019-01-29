@@ -28,3 +28,6 @@ exports.editPromotions = function (req, res) {
         console.log(error);
     }
 }
+
+
+
