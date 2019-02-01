@@ -16,6 +16,7 @@ exports.createProduct = function (req, res) {
          productData.styleCode = req.body.styleCode,
          productData.skuCode = req.body.skuCode, */
     productData.mainCategory.push(req.body.mainCategory),
+    productData.region = req.body.region;
         productData.save(
             function (err, productDetails) {
                 if (err) { // if it contains error return 0
@@ -32,7 +33,6 @@ exports.createProduct = function (req, res) {
 exports.createProductImage = function (req, file, res) {
     Product.findOne({
         'skuCode': req.params.skuCode,
-
     }, function (err, productDetail) {
         if (err) {
             console.log(err);
