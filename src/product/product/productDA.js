@@ -7,25 +7,19 @@ var mkdirp = require('mkdirp');
 
 exports.createProduct = function (req, res) {
     var productData = new Product(req.body);
-    /*  productData.productTitle = req.body.productTitle,
-         productData.productName = req.body.productName,
-         productData.shortDescription = req.body.shortDescription,
-         productData.productDescription = req.body.productDescription,
-         productData.price = req.body.price,
-         productData.color = req.body.color,
-         productData.styleCode = req.body.styleCode,
-         productData.skuCode = req.body.skuCode, */
-    productData.mainCategory.push(req.body.mainCategory),
-        productData.save(
-            function (err, productDetails) {
-                if (err) { // if it contains error return 0
-                    res.status(500).send({
-                        "result": 0
-                    });
-                } else {
-                    res.status(200).json(productDetails);
-                }
-            });
+    productData.region = req.body.region;
+    productData.mainCategory = req.body.mainCategory;
+    productData.save(
+        function (err, productDetails) {
+            if (err) { // if it contains error return 0
+                res.status(500).send({
+                    "result": 0
+                });
+                console.log(err);
+            } else {
+                res.status(200).json(productDetails);
+            }
+        });
 
 }
 
@@ -55,7 +49,7 @@ exports.createProductImage = function (req, file, res) {
                         }
                     })
                 }
-            } else {
+            } else if (productDetail.productImageName.length === 0) {
                 productDetail.productImageName.push(file.originalname);
                 productDetail.save(function (err, data) {
                     if (err) {

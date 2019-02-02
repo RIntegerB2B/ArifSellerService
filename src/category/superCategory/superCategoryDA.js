@@ -87,13 +87,13 @@ exports.superCategoryDelete = function (req, res) {
 
 
 exports.superCategoryShow = function (req, res) {
-    SuperCategory.find({}).select('categoryName  categoryDescription').exec(function (err, superCat) {
+    SuperCategory.find({}).select().exec(function (err, superCat) {
         if (err) {
             res.status(500).send({
                 message: "Some error occurred while retrieving notes."
             });
         } else {
-            res.json(superCat);
+            res.status(200).json(superCat);
         }
     });
 

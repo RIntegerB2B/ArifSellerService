@@ -26,7 +26,7 @@ exports.mainCategoryInsert = function (req, res) {
               "result": 0
             });
           } else {
-            console.log(superCat.mainCategory);
+            /* console.log(superCat.mainCategory); */
           }
         });
       }
