@@ -1,5 +1,6 @@
 'use strict';
 var Product = require('../../model/product.model');
+var MOQ = require('../../model/moq.model');
 var appSetting = require('../../config/appSetting');
 var fs = require('fs');
 var rmdir = require('rmdir');
@@ -17,7 +18,30 @@ exports.createProduct = function (req, res) {
                 });
                 console.log(err);
             } else {
-                res.status(200).json(productDetails);
+                if(req.body.moq !== undefined) {
+                    MOQ.findOne({
+                        '_id': req.body.moq
+                      }, function (err, moqEdit) {
+                        if (err) {
+                          res.status(500).json(err);
+                        } else {
+                          moqEdit.products.push(productDetails.id);
+                          moqEdit.save(function (err, moqData) {
+                            if (err) {
+                              res.status(500).send({
+                                "message": "error while retreiving moq"
+                              })
+                            } else {
+                              res.status(200).json(productDetails);
+                            }
+                          })
+                        }
+                      })
+                } 
+                else {
+                    res.status(200).json(productDetails);
+                }
+                
             }
         });
 
