@@ -40,6 +40,10 @@ exports.createProductImage = function (req, res) {
                 return res.status(501).json({
                     error: err
                 });
+            } else {
+                res.status(200).send({
+                    message :  "success"
+                });
             }
         });
 
