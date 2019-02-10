@@ -18,30 +18,29 @@ exports.createProduct = function (req, res) {
                 });
                 console.log(err);
             } else {
-                if(req.body.moq !== undefined) {
+                if (req.body.moq !== undefined) {
                     MOQ.findOne({
                         '_id': req.body.moq
-                      }, function (err, moqEdit) {
+                    }, function (err, moqEdit) {
                         if (err) {
-                          res.status(500).json(err);
+                            res.status(500).json(err);
                         } else {
-                          moqEdit.products.push(productDetails.id);
-                          moqEdit.save(function (err, moqData) {
-                            if (err) {
-                              res.status(500).send({
-                                "message": "error while retreiving moq"
-                              })
-                            } else {
-                              res.status(200).json(productDetails);
-                            }
-                          })
+                            moqEdit.products.push(productDetails.id);
+                            moqEdit.save(function (err, moqData) {
+                                if (err) {
+                                    res.status(500).send({
+                                        "message": "error while retreiving moq"
+                                    })
+                                } else {
+                                    res.status(200).json(productDetails);
+                                }
+                            })
                         }
-                      })
-                } 
-                else {
+                    })
+                } else {
                     res.status(200).json(productDetails);
                 }
-                
+
             }
         });
 

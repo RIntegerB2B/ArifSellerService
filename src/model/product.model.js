@@ -18,9 +18,9 @@ const ProductSchema = new mongoose.Schema({
     }],
 
     // size
-    length: Number,
-    breadth: Number,
-    height: Number,
+    length: String,
+    breadth: String,
+    height: String,
     // details
     material: String,
     waterProof: String,
