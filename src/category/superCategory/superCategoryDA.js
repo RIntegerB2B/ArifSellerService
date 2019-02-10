@@ -31,7 +31,8 @@ superCategoryInsert = function (req, res) {
 
 exports.superCategoryEdit = function (req, res) {
     SuperCategory.findById(req.params.id, function (err, superCat) {
-        if (err) return handleError(err);
+        if (err) { console.log(err);
+        }
         else {
             superCat.categoryName = req.body.categoryName;
             superCat.categoryDescription = req.body.categoryDescription;
