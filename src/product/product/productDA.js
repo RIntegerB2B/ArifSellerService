@@ -2,44 +2,57 @@
 var Product = require('../../model/product.model');
 var MOQ = require('../../model/moq.model');
 var appSetting = require('../../config/appSetting');
+var Inventory = require('../../model/inventory.model');
 var fs = require('fs');
 var rmdir = require('rmdir');
 var mkdirp = require('mkdirp');
 
-exports.createProduct = function (req, res) {
+exports.createProduct = function (req, res, productID) {
     var productData = new Product(req.body);
     productData.region = req.body.region;
     productData.mainCategory = req.body.mainCategory;
+    productData.productId = productID
     productData.save(
         function (err, productDetails) {
             if (err) { // if it contains error return 0
                 res.status(500).send({
                     "result": 0
                 });
-                console.log(err);
             } else {
-                if (req.body.moq !== undefined) {
-                    MOQ.findOne({
-                        '_id': req.body.moq
-                    }, function (err, moqEdit) {
-                        if (err) {
-                            res.status(500).json(err);
-                        } else {
-                            moqEdit.products.push(productDetails.id);
-                            moqEdit.save(function (err, moqData) {
+                var inventoyData = new Inventory();
+                inventoyData.productId = productDetails.id;
+                inventoyData.ID = productID
+                inventoyData.save( function(err, inventoryDetails){
+                    if (err) { // if it contains error return 0
+                        res.status(500).send({
+                            "result": 0
+                        });
+                    } else {
+                        if (req.body.moq !== undefined) {
+                            MOQ.findOne({
+                                '_id': req.body.moq
+                            }, function (err, moqEdit) {
                                 if (err) {
-                                    res.status(500).send({
-                                        "message": "error while retreiving moq"
-                                    })
+                                    res.status(500).json(err);
                                 } else {
-                                    res.status(200).json(productDetails);
+                                    moqEdit.products.push(productDetails.id);
+                                    moqEdit.save(function (err, moqData) {
+                                        if (err) {
+                                            res.status(500).send({
+                                                "message": "error while retreiving moq"
+                                            })
+                                        } else {
+                                            res.status(200).json(productDetails);
+                                        }
+                                    })
                                 }
                             })
+                        } else {
+                            res.status(200).json(productDetails);
                         }
-                    })
-                } else {
-                    res.status(200).json(productDetails);
-                }
+                    }
+                })
+                
 
             }
         });

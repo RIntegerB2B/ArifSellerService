@@ -92,7 +92,6 @@ exports.mainCategoryUpdate = function (req, res) {
                 "result": 0
               })
             } else {
-              console.log(createdCatalog);
               res.status(200).json(createdCatalog)
             }
           })
