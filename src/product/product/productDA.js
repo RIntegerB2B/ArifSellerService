@@ -22,7 +22,7 @@ exports.createProduct = function (req, res, productID) {
                 var inventoyData = new Inventory();
                 inventoyData.productId = productDetails.id;
                 inventoyData.ID = productID
-                inventoyData.save( function(err, inventoryDetails){
+                inventoyData.save(function (err, inventoryDetails) {
                     if (err) { // if it contains error return 0
                         res.status(500).send({
                             "result": 0
@@ -52,7 +52,7 @@ exports.createProduct = function (req, res, productID) {
                         }
                     }
                 })
-                
+
 
             }
         });
@@ -232,4 +232,44 @@ exports.getProductById = function (req, res) {
 
         }
     })
+}
+
+exports.editRegionDetails = function (req, res) {
+    Product.findById(req.params.id, function (err, products) {
+        if (err) {
+            res.status(500).send({
+                "result": 0
+            });
+        } else {
+            var regionData = products.region.id(req.params.regionid);
+            regionData.regionName = req.body.regionName;
+            regionData.regionPrice = req.body.regionPrice;
+            regionData.regionQuantity = req.body.regionQuantity;
+            products.save(function (err) {
+                if (err) {
+                    res.status(201).send({
+                        "result": 0
+                    });
+                } else {
+
+                    Product.find({
+                        '_id': req.params.id
+                    }, function (err, productDetails) {
+                        if (err) {
+                            res.status(500).json({
+                                "result": 0
+                            })
+                        } else {
+                            var productDetailsLength = productDetails[0].productImageName.length - 1;
+                            for (var i = 0; i <= productDetailsLength; i++) {
+                                productDetails[0].productImageName[i] = appSetting.productServerPath + productDetails[0].skuCode + '/' + productDetails[0].productImageName[i];
+                            }
+                            res.status(200).json(productDetails[0]);
+
+                        }
+                    })
+                }
+            });
+        }
+    });
 }

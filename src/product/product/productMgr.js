@@ -43,7 +43,6 @@ exports.createProduct = function (req, res) {
                 var results = zeroFill(4, result);
                 var productID = order + orderYear + orderMonth + results;
                 productDA.createProduct(req, res,  productID);
-                console.log(productID);
               }
             }
             
@@ -139,6 +138,14 @@ exports.relatedProducts = function (req, res) {
 exports.getProductById = function (req, res) {
     try {
         productDA.getProductById(req, res);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.editRegionDetails = function (req, res) {
+    try {
+        productDA.editRegionDetails(req, res);
     } catch (error) {
         console.log(error);
     }

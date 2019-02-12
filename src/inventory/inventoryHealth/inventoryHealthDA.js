@@ -1,6 +1,7 @@
 'use strict';
 var Inventory = require('../../model/inventory.model');
 var Product = require('../../model/product.model');
+var appSetting = require('../../config/appSetting');
 
 
 exports.inventoryShow = function (req, res) {
@@ -29,7 +30,7 @@ exports.inventoryShow = function (req, res) {
         var productImages = inventories[i].productImageName.sort();
         var productImageLength = productImages.length - 1;
         for (var j = 0; j <= productImageLength; j++) {
-            productData[i].productImageName[j] = appSetting.productServerPath + inventories[i].skuCode + '/' + inventories[i].productImageName[j];
+            inventories [i].productImageName[j] = appSetting.productServerPath + inventories[i].skuCode + '/' + inventories[i].productImageName[j];
         }
     }
     res.status(200).json(inventories);
