@@ -86,7 +86,7 @@ exports.mainCategoryUpdate = function (req, res) {
             "result": 0
           });
         } else {
-          SuperCategory.findById(req.params.categoryId).select('mainCategory').exec(function (err, createdCatalog) {
+          SuperCategory.find({'_id':req.params.categoryId},function (err, createdCatalog) {
             if (err) {
               res.status(500).json({
                 "result": 0

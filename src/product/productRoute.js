@@ -45,5 +45,8 @@ module.exports = function (app) {
     app.route('/productimages/:skuCode')
         .put(productMgr.createProductImage);
 
+        app.route('/product/:id/region/:regionid')
+        .put(productMgr.editRegionDetails);
+
 
 }

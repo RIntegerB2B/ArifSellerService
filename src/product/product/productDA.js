@@ -1,32 +1,61 @@
 'use strict';
 var Product = require('../../model/product.model');
+var MOQ = require('../../model/moq.model');
 var appSetting = require('../../config/appSetting');
+var Inventory = require('../../model/inventory.model');
 var fs = require('fs');
 var rmdir = require('rmdir');
 var mkdirp = require('mkdirp');
 
-exports.createProduct = function (req, res) {
+exports.createProduct = function (req, res, productID) {
     var productData = new Product(req.body);
-    /*  productData.productTitle = req.body.productTitle,
-         productData.productName = req.body.productName,
-         productData.shortDescription = req.body.shortDescription,
-         productData.productDescription = req.body.productDescription,
-         productData.price = req.body.price,
-         productData.color = req.body.color,
-         productData.styleCode = req.body.styleCode,
-         productData.skuCode = req.body.skuCode, */
-    productData.mainCategory.push(req.body.mainCategory),
     productData.region = req.body.region;
-        productData.save(
-            function (err, productDetails) {
-                if (err) { // if it contains error return 0
-                    res.status(500).send({
-                        "result": 0
-                    });
-                } else {
-                    res.status(200).json(productDetails);
-                }
-            });
+    productData.mainCategory = req.body.mainCategory;
+    productData.productId = productID
+    productData.save(
+        function (err, productDetails) {
+            if (err) { // if it contains error return 0
+                res.status(500).send({
+                    "result": 0
+                });
+            } else {
+                var inventoyData = new Inventory();
+                inventoyData.productId = productDetails.id;
+                inventoyData.ID = productID
+                inventoyData.save(function (err, inventoryDetails) {
+                    if (err) { // if it contains error return 0
+                        res.status(500).send({
+                            "result": 0
+                        });
+                    } else {
+                        if (req.body.moq !== undefined) {
+                            MOQ.findOne({
+                                '_id': req.body.moq
+                            }, function (err, moqEdit) {
+                                if (err) {
+                                    res.status(500).json(err);
+                                } else {
+                                    moqEdit.products.push(productDetails.id);
+                                    moqEdit.save(function (err, moqData) {
+                                        if (err) {
+                                            res.status(500).send({
+                                                "message": "error while retreiving moq"
+                                            })
+                                        } else {
+                                            res.status(200).json(productDetails);
+                                        }
+                                    })
+                                }
+                            })
+                        } else {
+                            res.status(200).json(productDetails);
+                        }
+                    }
+                })
+
+
+            }
+        });
 
 }
 
@@ -203,4 +232,43 @@ exports.getProductById = function (req, res) {
 
         }
     })
+}
+
+exports.editRegionDetails = function (req, res) {
+    Product.findById(req.params.id, function (err, products) {
+        if (err) {
+            res.status(500).send({
+                "result": 0
+            });
+        } else {
+            var regionData = products.region.id(req.params.regionid);
+            regionData.regionName = req.body.regionName;
+            regionData.regionPrice = req.body.regionPrice;
+            regionData.regionQuantity = req.body.regionQuantity;
+            products.save(function (err) {
+                if (err) {
+                    res.status(201).send({
+                        "result": 0
+                    });
+                } else {
+                    Product.find({
+                        '_id': req.params.id
+                    }, function (err, productDetails) {
+                        if (err) {
+                            res.status(500).json({
+                                "result": 0
+                            })
+                        } else {
+                            var productDetailsLength = productDetails[0].productImageName.length - 1;
+                            for (var i = 0; i <= productDetailsLength; i++) {
+                                productDetails[0].productImageName[i] = appSetting.productServerPath + productDetails[0].skuCode + '/' + productDetails[0].productImageName[i];
+                            }
+                            res.status(200).json(productDetails[0]);
+
+                        }
+                    })
+                }
+            });
+        }
+    });
 }

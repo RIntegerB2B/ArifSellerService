@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
 const ProductSchema = new mongoose.Schema({
+    productId: String,
     productTitle: String,
     productName: String,
     productDescription: String,
@@ -11,6 +12,7 @@ const ProductSchema = new mongoose.Schema({
     skuCode: String,
     productImageName: [String],
     mainCategory: String,
+    mfdQty: Number,
     region: [{
         regionName: String,
         regionPrice: Number,
@@ -18,9 +20,9 @@ const ProductSchema = new mongoose.Schema({
     }],
 
     // size
-    length: Number,
-    breadth: Number,
-    height: Number,
+    length: String,
+    breadth: String,
+    height: String,
     // details
     material: String,
     waterProof: String,

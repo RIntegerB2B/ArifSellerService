@@ -1,8 +1,7 @@
 'use strict';
 var SuperCategory = require('../../model/superCategory.model');
 
-exports.
-superCategoryInsert = function (req, res) {
+exports.superCategoryInsert = function (req, res) {
 
     var superCategoryData = new SuperCategory(req.body);
     superCategoryData.categoryName = req.body.categoryName;
@@ -31,7 +30,8 @@ superCategoryInsert = function (req, res) {
 
 exports.superCategoryEdit = function (req, res) {
     SuperCategory.findById(req.params.id, function (err, superCat) {
-        if (err) return handleError(err);
+        if (err) { console.log(err);
+        }
         else {
             superCat.categoryName = req.body.categoryName;
             superCat.categoryDescription = req.body.categoryDescription;
