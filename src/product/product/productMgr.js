@@ -150,3 +150,12 @@ exports.editRegionDetails = function (req, res) {
         console.log(error);
     }
 }
+exports.editQtyDetails = function (req, res) {
+    try {
+        productDA.editQtyDetails(req, res);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+

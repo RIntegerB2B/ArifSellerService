@@ -48,5 +48,8 @@ module.exports = function (app) {
         app.route('/product/:id/region/:regionid')
         .put(productMgr.editRegionDetails);
 
+        app.route('/mfdqty/:id')
+        .put(productMgr.editQtyDetails);
+
 
 }

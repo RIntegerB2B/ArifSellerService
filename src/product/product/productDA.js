@@ -272,3 +272,39 @@ exports.editRegionDetails = function (req, res) {
         }
     });
 }
+
+exports.editQtyDetails = function (req, res) {
+    Product.findById(req.params.id, function (err, product) {
+        if (err) {
+            res.status(500).send({
+                "result": 0
+            });
+        } else {
+           product.mfdQty = req.body.mfdQty;
+            product.save(function (err, updatedProduct) {
+                if (err) {
+                    res.status(201).send({
+                        "result": 0
+                    });
+                } else {
+                    Product.find({
+                        '_id': req.params.id
+                    }, function (err, productDetails) {
+                        if (err) {
+                            res.status(500).json({
+                                "result": 0
+                            })
+                        } else {
+                            var productDetailsLength = productDetails[0].productImageName.length - 1;
+                            for (var i = 0; i <= productDetailsLength; i++) {
+                                productDetails[0].productImageName[i] = appSetting.productServerPath + productDetails[0].skuCode + '/' + productDetails[0].productImageName[i];
+                            }
+                            res.status(200).json(productDetails[0]);
+
+                        }
+                    })
+                }
+            });
+        }
+    });
+}
