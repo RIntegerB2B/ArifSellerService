@@ -251,7 +251,6 @@ exports.editRegionDetails = function (req, res) {
                         "result": 0
                     });
                 } else {
-
                     Product.find({
                         '_id': req.params.id
                     }, function (err, productDetails) {
