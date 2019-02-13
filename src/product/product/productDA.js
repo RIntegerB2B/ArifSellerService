@@ -7,21 +7,6 @@ var mkdirp = require('mkdirp');
 
 exports.createProduct = function (req, res) {
     var productData = new Product(req.body);
-<<<<<<< HEAD
-    productData.region = req.body.region;
-    productData.mainCategory = req.body.mainCategory;
-    productData.save(
-        function (err, productDetails) {
-            if (err) { // if it contains error return 0
-                res.status(500).send({
-                    "result": 0
-                });
-                console.log(err);
-            } else {
-                res.status(200).json(productDetails);
-            }
-        });
-=======
     /*  productData.productTitle = req.body.productTitle,
          productData.productName = req.body.productName,
          productData.shortDescription = req.body.shortDescription,
@@ -42,7 +27,6 @@ exports.createProduct = function (req, res) {
                     res.status(200).json(productDetails);
                 }
             });
->>>>>>> f8a7741b4d07ce420ac9d40a256800cc4bc7f7cb
 
 }
 
