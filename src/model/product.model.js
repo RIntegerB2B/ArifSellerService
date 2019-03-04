@@ -15,6 +15,7 @@ const ProductSchema = new mongoose.Schema({
     mfdQty: Number,
     region: [{
         regionName: String,
+        domainRegion: String,
         regionPrice: Number,
         regionQuantity: Number
     }],

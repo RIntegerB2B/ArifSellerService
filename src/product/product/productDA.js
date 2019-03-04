@@ -144,6 +144,38 @@ exports.deleteProduct = function (req, res) {
                         err
                     });
                 } else {
+                    MOQ.find({}).select().exec(function (err, moqData) {
+                        if (err) {
+                            res.status(500).send({
+                                err
+                            });
+                        } else {
+                            var moqLength = moqData.length - 1;
+                            for (var i = 0; i <= moqLength; i++) {
+                                moqData[i].products.forEach(element => {
+                                    if (element === req.params.productId) {
+                                        const index = moqData[i].products.indexOf(element);
+                                        if (index !== -1) {
+                                            moqData[i].products.splice(index, 1);
+                                            moqData[i].save(function (err, data) {
+                                                if (err) {
+                                                    res.status(500).send({
+                                                        err
+                                                    });
+                                                    
+                                                } else {
+                                                    console.log(data);
+                                                }
+                                            })
+                                        }
+
+                                    } else {
+                                        console.log('products not available');
+                                    }
+                                });
+                            }
+                        }
+                    });
                     Product.find({}).select().exec(function (err, productData) {
                         if (err) {
                             res.status(500).send({
@@ -280,7 +312,7 @@ exports.editQtyDetails = function (req, res) {
                 "result": 0
             });
         } else {
-           product.mfdQty = req.body.mfdQty;
+            product.mfdQty = req.body.mfdQty;
             product.save(function (err, updatedProduct) {
                 if (err) {
                     res.status(201).send({
