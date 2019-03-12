@@ -5,6 +5,7 @@ var buyerRoutes = require('./buyer/buyerRoute');
 var settingRoutes = require('./settings/settingsRoute');
 var moqRoutes = require('./moq/moqRoute');
 var inventoryRoutes = require('./inventory/inventoryRoute');
+var regionRoutes = require('./region/regionRoute');
 
 exports.loadRoutes = function (app) {
     accountRoutes(app);
@@ -14,5 +15,6 @@ exports.loadRoutes = function (app) {
     settingRoutes(app);
     moqRoutes(app);
     inventoryRoutes(app);
+    regionRoutes(app);
 };
 

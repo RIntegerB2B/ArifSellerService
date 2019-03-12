@@ -164,13 +164,13 @@ exports.deleteProduct = function (req, res) {
                                                     });
                                                     
                                                 } else {
-                                                    console.log(data);
+                                                   /*  console.log(data); */
                                                 }
                                             })
                                         }
 
                                     } else {
-                                        console.log('products not available');
+                                        /* console.log('products not available'); */
                                     }
                                 });
                             }

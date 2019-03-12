@@ -3,6 +3,7 @@ var adsMgr  = require('./ads/adsMgr');
 var bannersMgr = require('./banner/bannerMgr');
 var promotionsMgr = require('./promotions/promotionsMgr');
 var regionMgr = require('./region/regionMgr');
+var productMgr = require('./product/productMgr');
 
 module.exports = function(app) {
 
@@ -51,4 +52,25 @@ module.exports = function(app) {
 
      app.route('/deleteregions/:id')
     .delete(regionMgr.deleteRegions);
+
+    // product settings
+
+    app.route('/productSettings')
+     .get(productMgr.getProductSettings);
+
+    app.route('/pricerange')
+     .post(productMgr.createPriceRange);
+
+     app.route('/removeprice')
+     .post(productMgr.deletePriceRange);
+
+     app.route('/color')
+     .post(productMgr.createColor);
+
+     app.route('/removecolor')
+     .post(productMgr.deleteColor);
+     app.route('/material')
+     .post(productMgr.createMaterial);
+     app.route('/removematerial')
+     .post(productMgr.deleteMaterial);
 }
