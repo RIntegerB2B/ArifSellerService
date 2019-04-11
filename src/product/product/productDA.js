@@ -11,7 +11,8 @@ exports.createProduct = function (req, res, productID) {
     var productData = new Product(req.body);
     productData.region = req.body.region;
     productData.mainCategory = req.body.mainCategory;
-    productData.productId = productID
+    productData.productId = productID;
+   /*  productData.moq = req.body.moq; */
     productData.save(
         function (err, productDetails) {
             if (err) { // if it contains error return 0

@@ -89,3 +89,12 @@ exports.getProducts = function (req, res) {
     }
   })
 }
+exports.viewSingleMoq = function (req, res) {
+  MOQ.findById(req.params.id, function (err, data) {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+     res.status(200).json(data);
+    }
+  })
+}

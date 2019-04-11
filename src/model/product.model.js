@@ -13,11 +13,13 @@ const ProductSchema = new mongoose.Schema({
     productImageName: [String],
     mainCategory: String,
     mfdQty: Number,
+    moq: String,
     region: [{
         regionName: String,
         domainRegion: String,
         regionPrice: Number,
-        regionQuantity: Number
+        regionQuantity: Number,
+        moq: Number
     }],
 
     // size

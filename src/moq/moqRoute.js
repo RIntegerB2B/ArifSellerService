@@ -14,4 +14,7 @@ module.exports = function (app) {
 
         app.route('/moqs/:id/product')
         .get(moqMgr.getProducts)
+
+        app.route('/moq/:id')
+        .get(moqMgr.viewSingleMoq);
 }

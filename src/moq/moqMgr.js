@@ -38,7 +38,13 @@ exports.getProducts = function (req, res) {
         console.log(error);
     }
 }
-
+exports.viewSingleMoq = function (req, res) {
+    try {
+        moqDA.viewSingleMoq(req, res);
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 
