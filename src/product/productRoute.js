@@ -51,5 +51,11 @@ module.exports = function (app) {
         app.route('/mfdqty/:id')
         .put(productMgr.editQtyDetails);
 
+        // inventory update
+
+        
+
+        app.route('/inventory')
+        .post(productMgr.updateInventory);
 
 }

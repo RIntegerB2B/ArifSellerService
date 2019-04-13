@@ -341,3 +341,39 @@ exports.editQtyDetails = function (req, res) {
         }
     });
 }
+
+exports.updateInventory = function (req, res) {
+    var savingProducts = req.body.products;
+    var region = req.body.domainName;
+        for (var i = 0; i <= savingProducts.length - 1; i++) {
+          var set = savingProducts[i].set;
+          var moq = savingProducts[i].moq;
+
+          Product.findOne({
+            productId: savingProducts[i].ID
+          }, function (err, data) {
+            if (err) {
+              res.status(500).send({
+                "result": 0
+              });
+
+            } else {
+                for (var i = 0; i <= data.region.length - 1; i++) {
+                                        if (data.region[i].domainRegion === region) {
+                        data.region[i].regionQuantity =  data.region[i].regionQuantity - set * moq;
+                    }
+                }
+     
+              data.save(function (err, inventoryUpdate) {
+                if (err) {
+                  res.status(500).send({
+                    "result": 0
+                  });
+                } else {
+                }
+              }) 
+            }
+
+          })
+        }
+}
