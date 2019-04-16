@@ -158,4 +158,13 @@ exports.editQtyDetails = function (req, res) {
     }
 }
 
+exports.updateInventory = function (req, res) {
+    try {
+        productDA.updateInventory(req, res);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
 

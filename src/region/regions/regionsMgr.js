@@ -15,3 +15,10 @@ exports.getSingleRegions = function (req, res) {
         console.log(error);
     }
 }
+exports.getCustomers = function (req, res) {
+    try {
+        regionsDA.getCustomers(req, res);
+    } catch (error) {
+        console.log(error);
+    }
+}

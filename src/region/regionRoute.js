@@ -8,4 +8,7 @@ module.exports = function (app) {
         app.route('/regions/:id')
         .get(regionsMgr.getSingleRegions);
 
+        app.route('/customers/:id')
+        .get(regionsMgr.getCustomers);
+
 }
